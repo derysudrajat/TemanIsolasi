@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/itemHome"
+        android:icon="@drawable/ic_home"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/itemGuide"
+        android:icon="@drawable/ic_guide"
+        android:title="Guides" />
+
+    <item
+        android:id="@+id/itemEmpty"
+        android:title="" />
+
+    <item
+        android:id="@+id/itemActivity"
+        android:icon="@drawable/ic_explore"
+        android:title="Activity" />
+
+    <item
+        android:id="@+id/itemProfile"
+        android:icon="@drawable/ic_person"
+        android:title="Profile" />
+</menu>
