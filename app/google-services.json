@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "838434879924",
+    "project_id": "iso-man",
+    "storage_bucket": "iso-man.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:838434879924:android:b1583b8783047a58461ae1",
+        "android_client_info": {
+          "package_name": "id.temanisolasi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "838434879924-2b9pu7ta9uh8qltq3uqp0rnsfsn3nftg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCuN43w-E8SYQ6Z3ncX3de4njjU07S9Y8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "838434879924-2b9pu7ta9uh8qltq3uqp0rnsfsn3nftg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
