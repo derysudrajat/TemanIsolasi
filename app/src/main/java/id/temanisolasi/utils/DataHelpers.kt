@@ -9,4 +9,8 @@ object DataHelpers {
             "The password is invalid or the user does not have a password." to "Password salah",
             "The given password is invalid. [ Password should be at least 6 characters ]" to "Password paling sedikit 6 karakter"
         )
+
+    val jsonAnimation = listOf(
+        "https://assets5.lottiefiles.com/packages/lf20_TYZsbM.json"
+    )
 }

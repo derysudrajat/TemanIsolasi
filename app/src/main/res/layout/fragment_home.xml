@@ -7,7 +7,7 @@
     android:background="@drawable/ic_bg_home">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tvName"
         style="@style/Text.Desc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
     <me.tankery.lib.circularseekbar.CircularSeekBar
         android:id="@+id/circularSeekBar"
@@ -41,7 +41,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:elevation="1dp"
         app:cs_circle_color="@android:color/transparent"
@@ -52,7 +51,7 @@
         app:cs_max="14"
         app:cs_negative_enabled="true"
         app:cs_pointer_color="#6ED1FE"
-        app:cs_pointer_halo_width="65dp"
+        app:cs_pointer_halo_width="75dp"
         app:cs_pointer_stroke_width="35dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,7 +63,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:elevation="0dp"
         app:cs_circle_color="@color/white"
@@ -72,7 +70,7 @@
         app:cs_circle_style="round"
         app:cs_negative_enabled="true"
         app:cs_pointer_color="@android:color/transparent"
-        app:cs_pointer_halo_width="65dp"
+        app:cs_pointer_halo_width="75dp"
         app:cs_pointer_stroke_width="35dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -109,6 +107,7 @@
         android:id="@+id/tabLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="@+id/circularSeekBar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -151,7 +150,7 @@
         app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/circularSeekBar">
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

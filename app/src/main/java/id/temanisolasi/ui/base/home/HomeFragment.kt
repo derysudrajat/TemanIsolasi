@@ -10,11 +10,13 @@ import id.temanisolasi.databinding.FragmentHomeBinding
 import id.temanisolasi.ui.base.home.condition.FragmentTemperature
 import id.temanisolasi.utils.Helpers
 import id.temanisolasi.utils.SectionPagerAdapter
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+    private val model: HomeViewModel by viewModel()
     private var conditionPage = 0
 
     override fun onCreateView(
@@ -29,7 +31,13 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val dummyTemp = Helpers.dummyTemp
         val dayLeft = (14 - dummyTemp.size)
+        model.getUser()
+
         binding.apply {
+
+            model.user.observe(requireActivity()) {
+                tvName.text = buildString { append("Hi, ").append(it.name) }
+            }
             circularSeekBar.apply {
                 isEnabled = false
                 progress = dayLeft.toFloat()
