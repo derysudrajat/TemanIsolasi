@@ -2,6 +2,7 @@ package id.temanisolasi.di
 
 import id.temanisolasi.data.repo.remote.firebase.auth.AuthRepository
 import id.temanisolasi.data.repo.remote.firebase.firestore.FirestoreUserRepository
+import id.temanisolasi.ui.base.home.HomeViewModel
 import id.temanisolasi.ui.login.LoginViewModel
 import id.temanisolasi.ui.register.RegisterViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -15,4 +16,5 @@ val useCaseModule = module {
 val viewModelModule = module {
     viewModel { LoginViewModel(get(), get()) }
     viewModel { RegisterViewModel(get(), get()) }
+    viewModel { HomeViewModel(get()) }
 }

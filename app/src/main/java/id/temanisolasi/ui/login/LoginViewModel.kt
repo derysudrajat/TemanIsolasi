@@ -10,6 +10,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import id.temanisolasi.R
 import id.temanisolasi.data.model.User
 import id.temanisolasi.data.repo.State
 import id.temanisolasi.data.repo.remote.firebase.auth.AuthRepository
@@ -17,6 +18,7 @@ import id.temanisolasi.data.repo.remote.firebase.firestore.FirestoreUserReposito
 import id.temanisolasi.ui.base.MainActivity
 import id.temanisolasi.ui.register.RegisterActivity
 import id.temanisolasi.utils.DataHelpers
+import id.temanisolasi.utils.DialogHelpers
 import id.temanisolasi.utils.LoginState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
@@ -41,11 +43,12 @@ class LoginViewModel(
 
     @ExperimentalCoroutinesApi
     fun loginWithGoogle(account: GoogleSignInAccount, activity: Activity) = viewModelScope.launch {
+        val dialog = DialogHelpers(activity)
+        dialog.init(R.layout.dialog_base)
         account.idToken?.let { token ->
             authRepository.loginWithGoogle(token, activity).collect {
                 when (it) {
-                    is State.Loading -> {
-                    }
+                    is State.Loading -> dialog.showDialog()
                     is State.Success -> checkAccountWasExist(activity, account)
                     is State.Failed -> Log.d("TAG", "googleLoginWithGoogle: failed = ${it.message}")
                 }
@@ -90,25 +93,27 @@ class LoginViewModel(
             }
         }
 
-    fun loginWithEmailPassword(email: String, password: String) = viewModelScope.launch {
-        authRepository.loginWithEmail(email, password).collect {
-            when (it) {
-                is State.Loading -> { /*do nothing*/
-                }
-                is State.Success -> {
-//                    DialogHelpers.hideLoadingDialog()
-                    _isLoginSuccess.value = LoginState.SUCCESS
-                }
-                is State.Failed -> {
-//                    DialogHelpers.hideLoadingDialog()
-                    Log.d("TAG", "login: failed = ${it.message}")
-                    DataHelpers.errorLoginMessage.let { msg ->
-                        val isFirst = msg[msg.keys.first()] == it.message
-                        _isLoginSuccess.value =
-                            if (isFirst) LoginState.USER_NOT_FOUND else LoginState.WRONG_PASSWORD
+    fun loginWithEmailPassword(email: String, password: String, activity: Activity) =
+        viewModelScope.launch {
+            val dialog = DialogHelpers(activity)
+            dialog.init(R.layout.dialog_base)
+            authRepository.loginWithEmail(email, password).collect {
+                when (it) {
+                    is State.Loading -> dialog.showDialog()
+                    is State.Success -> {
+                        dialog.hideDialog()
+                        _isLoginSuccess.value = LoginState.SUCCESS
+                    }
+                    is State.Failed -> {
+                        dialog.hideDialog()
+                        Log.d("TAG", "login: failed = ${it.message}")
+                        DataHelpers.errorLoginMessage.let { msg ->
+                            val isFirst = msg[msg.keys.first()] == it.message
+                            _isLoginSuccess.value =
+                                if (isFirst) LoginState.USER_NOT_FOUND else LoginState.WRONG_PASSWORD
+                        }
                     }
                 }
             }
         }
-    }
 }

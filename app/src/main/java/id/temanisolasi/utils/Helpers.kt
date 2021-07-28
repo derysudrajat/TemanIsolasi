@@ -1,10 +1,13 @@
 package id.temanisolasi.utils
 
 import android.app.Activity
+import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
@@ -70,17 +73,30 @@ object Helpers {
     fun EditText.getPlainText() = this.text.toString()
 
     fun validateError(vararg inputLayouts: TextInputLayout) {
-        for (layout in inputLayouts) layout.isErrorEnabled = false
+        for (layout in inputLayouts) layout.apply {
+            isErrorEnabled = false
+            boxStrokeColor = ContextCompat.getColor(context, R.color.white)
+            boxBackgroundColor = ContextCompat.getColor(context, R.color.white)
+            setErrorTextColor(ContextCompat.getColorStateList(context, R.color.white))
+        }
     }
 
     fun TextInputLayout.showError(message: String? = "Tidak boleh kosong") {
         this.apply {
             error = message
             isErrorEnabled = true
+            boxStrokeColor = ContextCompat.getColor(context, R.color.error)
+            boxBackgroundColor = ContextCompat.getColor(context, R.color.error)
+            setErrorTextColor(ContextCompat.getColorStateList(context, R.color.error))
         }
     }
 
     fun showToast(activity: Activity, message: String) {
         Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+    }
+
+    fun Activity.hideKeyboard() = this.currentFocus?.let { view ->
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        imm?.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }

@@ -54,7 +54,7 @@ class LoginActivity : AppCompatActivity() {
             btnLogin.setOnClickListener {
                 model.loginWithEmailPassword(
                     edtEmail.getPlainText(),
-                    edtPassword.getPlainText()
+                    edtPassword.getPlainText(), this@LoginActivity
                 )
             }
 
