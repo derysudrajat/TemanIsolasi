@@ -13,12 +13,12 @@ import id.temanisolasi.databinding.FragmentTemperatureBinding
 class LineChartViewHolder(
     private val context: Context, private val binding: FragmentTemperatureBinding
 ) {
-    fun setDataChart(dataTemp: MutableList<Float>) {
+    fun setDataChart(dataTemp: MutableList<Float>, minimum: Float? = 32f) {
         val dataSet = LineDataSet(setupData(dataTemp), "Suhu")
             .apply { setLineChartStyle(this, R.color.secondary) }
         val lineData = LineData(dataSet)
         binding.mainChart.apply {
-            initChart(this)
+            initChart(this, minimum ?: 32f)
             data = lineData
             invalidate()
         }
@@ -48,7 +48,7 @@ class LineChartViewHolder(
         }
     }
 
-    private fun initChart(lineChart: LineChart) {
+    private fun initChart(lineChart: LineChart, minimum: Float) {
         with(lineChart) {
             animateX(1500)
             description.isEnabled = false
@@ -56,7 +56,7 @@ class LineChartViewHolder(
             axisRight.isEnabled = false
             axisLeft.isEnabled = false
             xAxis.isEnabled = false
-            axisLeft.axisMinimum = 34f
+            axisLeft.axisMinimum = minimum
             isDragEnabled = false
             setTouchEnabled(false)
             setScaleEnabled(false)

@@ -8,8 +8,23 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/TemanIsolasi/app/src/main/res/layout/fragment_medicine.xml" value="0.17407407407407408" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/drawable/ic_games_fill.xml" value="0.22291666666666668" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/drawable/ic_games_outline.xml" value="0.22291666666666668" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/drawable/ic_guide.xml" value="0.22291666666666668" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/drawable/ic_guide_fill.xml" value="0.22291666666666668" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/drawable/ic_guide_outline.xml" value="0.22291666666666668" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/drawable/ic_home_fill.xml" value="0.22291666666666668" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/drawable/ic_home_outline.xml" value="0.22291666666666668" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/drawable/ic_profile_fill.xml" value="0.22291666666666668" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/drawable/ic_profile_outline.xml" value="0.22291666666666668" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/drawable/sl_games.xml" value="0.22291666666666668" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/drawable/sl_guide.xml" value="0.22291666666666668" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/drawable/sl_home.xml" value="0.22291666666666668" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/drawable/sl_profile.xml" value="0.22291666666666668" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/layout/fragment_medicine.xml" value="0.25" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/layout/fragment_task.xml" value="0.25" />
         <entry key="..\:/TemanIsolasi/app/src/main/res/layout/fragment_temperature.xml" value="0.17407407407407408" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/menu/main_bottom_nav_menu.xml" value="0.20358974358974358" />
       </map>
     </option>
   </component>
