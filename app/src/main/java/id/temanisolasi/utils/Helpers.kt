@@ -12,6 +12,7 @@ import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.Timestamp
 import id.temanisolasi.R
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -19,6 +20,8 @@ import kotlinx.coroutines.ObsoleteCoroutinesApi
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 object Helpers {
 
@@ -32,15 +35,19 @@ object Helpers {
     }
 
     val dummyIconHome = listOf(
-        R.drawable.ic_home,
-        R.drawable.ic_guide,
-        R.drawable.ic_explore,
-        R.drawable.ic_person,
+        R.drawable.ic_temp,
+        R.drawable.ic_oxy,
+        R.drawable.ic_medince,
+        R.drawable.ic_task,
     )
 
     val dummyTemp = mutableListOf(
         38.9f, 38.2f, 37.6f, 37.9f, 36.7f, 37.2f, 36.3f,
         36.1f, 36.2f, 36.4f, 36.2f, 36.1f, 36.3f
+    )
+
+    val dummySaturation = mutableListOf(
+        85.0f, 86.0f, 85.0f, 87.0f, 89.0f, 90.0f, 91.0f, 92.0f, 93.0f, 92.0f, 94.0f, 95.0f, 96.0f
     )
 
     @ObsoleteCoroutinesApi
@@ -98,5 +105,9 @@ object Helpers {
     fun Activity.hideKeyboard() = this.currentFocus?.let { view ->
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
         imm?.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    fun Timestamp.formatDate(format: String): String? {
+        return SimpleDateFormat(format, Locale.getDefault()).format(this.toDate().time)
     }
 }

@@ -7,3 +7,7 @@ object COLLECTION {
 enum class LoginState {
     SUCCESS, USER_NOT_FOUND, WRONG_PASSWORD
 }
+
+object DateFormat {
+    const val SHORT = "dd MMMM yyyy"
+}

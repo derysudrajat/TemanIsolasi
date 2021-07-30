@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import id.temanisolasi.databinding.FragmentHomeBinding
-import id.temanisolasi.ui.base.home.condition.FragmentTemperature
+import id.temanisolasi.ui.base.home.condition.medicine.FragmentMedicine
+import id.temanisolasi.ui.base.home.condition.oxygen.FragmentOxygen
+import id.temanisolasi.ui.base.home.condition.task.FragmentTask
+import id.temanisolasi.ui.base.home.condition.temperature.FragmentTemperature
 import id.temanisolasi.utils.Helpers
 import id.temanisolasi.utils.SectionPagerAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -50,9 +53,9 @@ class HomeFragment : Fragment() {
                     requireActivity(),
                     listOf(
                         FragmentTemperature.newInstance(),
-                        Fragment(),
-                        Fragment(),
-                        Fragment(),
+                        FragmentOxygen.newInstance(),
+                        FragmentMedicine.newInstance(),
+                        FragmentTask.newInstance(),
                     )
                 )
             }

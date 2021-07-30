@@ -49,8 +49,11 @@ class LoginViewModel(
             authRepository.loginWithGoogle(token, activity).collect {
                 when (it) {
                     is State.Loading -> dialog.showDialog()
-                    is State.Success -> checkAccountWasExist(activity, account)
-                    is State.Failed -> Log.d("TAG", "googleLoginWithGoogle: failed = ${it.message}")
+                    is State.Success -> checkAccountWasExist(activity, account, dialog)
+                    is State.Failed -> {
+                        dialog.hideDialog()
+                        Log.d("TAG", "googleLoginWithGoogle: failed = ${it.message}")
+                    }
                 }
             }
         }
@@ -58,40 +61,43 @@ class LoginViewModel(
     }
 
     @ExperimentalCoroutinesApi
-    private fun checkAccountWasExist(activity: Activity, account: GoogleSignInAccount) =
-        viewModelScope.launch {
-            val id = Firebase.auth.currentUser?.uid ?: ""
-            userRepository.getUserById(id).collect {
-                when (it) {
-                    is State.Loading -> {
-                        Log.d("TAG", "checkAccountWasExist: loading")
-                    }
-                    is State.Success -> {
-//                        DialogHelpers.hideLoadingDialog()
-                        it.data.let { user ->
-                            if (user.name != null) with(activity) {
-                                startActivity(Intent(this, MainActivity::class.java))
-                                finish()
-                            } else with(activity) {
-                                startActivity(Intent(
-                                    this, RegisterActivity::class.java
-                                ).apply {
-                                    putExtra(
-                                        RegisterActivity.EXTRA_CREATE,
-                                        User(name = account.displayName, email = account.email)
-                                    )
-                                })
-                                finish()
-                            }
+    private fun checkAccountWasExist(
+        activity: Activity,
+        account: GoogleSignInAccount,
+        dialog: DialogHelpers
+    ) = viewModelScope.launch {
+        val id = Firebase.auth.currentUser?.uid ?: ""
+        userRepository.getUserById(id).collect {
+            when (it) {
+                is State.Loading -> {
+                    Log.d("TAG", "checkAccountWasExist: loading")
+                }
+                is State.Success -> {
+                    dialog.hideDialog()
+                    it.data.let { user ->
+                        if (user.name != null) with(activity) {
+                            startActivity(Intent(this, MainActivity::class.java))
+                            finish()
+                        } else with(activity) {
+                            startActivity(Intent(
+                                this, RegisterActivity::class.java
+                            ).apply {
+                                putExtra(
+                                    RegisterActivity.EXTRA_CREATE,
+                                    User(name = account.displayName, email = account.email)
+                                )
+                            })
+                            finish()
                         }
                     }
-                    is State.Failed -> {
-//                        DialogHelpers.hideLoadingDialog()
-                        Log.d("TAG", "checkAccountWasExist: failed = ${it.message}")
-                    }
+                }
+                is State.Failed -> {
+                    dialog.hideDialog()
+                    Log.d("TAG", "checkAccountWasExist: failed = ${it.message}")
                 }
             }
         }
+    }
 
     fun loginWithEmailPassword(email: String, password: String, activity: Activity) =
         viewModelScope.launch {
