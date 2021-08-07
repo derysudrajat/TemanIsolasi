@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_bg_home"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.startisolation.StartIsolationActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:backgroundTint="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        style="@style/Text.MainTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Data Isolasi"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivPersonalData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivDataIsolation"
+        app:layout_constraintEnd_toStartOf="@+id/linePersonalToIsolation"
+        app:layout_constraintTop_toTopOf="@+id/ivDataIsolation"
+        app:srcCompat="@drawable/ic_person" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/linePersonalToIsolation"
+        android:layout_width="50dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:cardBackgroundColor="@color/white_50"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivDataIsolation"
+        app:layout_constraintEnd_toStartOf="@+id/ivDataIsolation"
+        app:layout_constraintTop_toTopOf="@+id/ivDataIsolation" />
+
+    <ImageView
+        android:id="@+id/ivDataIsolation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:srcCompat="@drawable/ic_medical"
+        app:tint="@color/white_50" />
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/lineIsolationToFinish"
+        android:layout_width="50dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="8dp"
+        app:cardBackgroundColor="@color/white_50"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivDataIsolation"
+        app:layout_constraintStart_toEndOf="@+id/ivDataIsolation"
+        app:layout_constraintTop_toTopOf="@+id/ivDataIsolation" />
+
+    <ImageView
+        android:id="@+id/ivFinish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivDataIsolation"
+        app:layout_constraintStart_toEndOf="@+id/lineIsolationToFinish"
+        app:layout_constraintTop_toTopOf="@+id/ivDataIsolation"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/ic_check"
+        app:tint="@color/white_50" />
+
+    <TextView
+        android:id="@+id/tvPersonalData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Data Pribadi"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/ivPersonalData"
+        app:layout_constraintStart_toStartOf="@+id/ivPersonalData"
+        app:layout_constraintTop_toBottomOf="@+id/ivPersonalData" />
+
+    <TextView
+        android:id="@+id/tvIsolationData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Data Isolasi"
+        android:textColor="@color/white_50"
+        app:layout_constraintEnd_toEndOf="@+id/ivDataIsolation"
+        app:layout_constraintStart_toStartOf="@+id/ivDataIsolation"
+        app:layout_constraintTop_toBottomOf="@+id/ivDataIsolation" />
+
+    <TextView
+        android:id="@+id/tvFinish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Selesai"
+        android:textColor="@color/white_50"
+        app:layout_constraintEnd_toEndOf="@+id/ivFinish"
+        app:layout_constraintStart_toStartOf="@+id/ivFinish"
+        app:layout_constraintTop_toBottomOf="@+id/ivFinish" />
+
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnNext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvIsolationData" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/btnNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/color_button_white"
+        android:enabled="false"
+        android:paddingStart="22dp"
+        android:text="Selanjutnya"
+        android:textAlignment="center"
+        android:textColor="@color/primary"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

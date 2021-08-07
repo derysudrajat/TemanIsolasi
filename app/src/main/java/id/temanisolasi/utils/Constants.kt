@@ -2,6 +2,7 @@ package id.temanisolasi.utils
 
 object COLLECTION {
     const val USER = "user"
+    const val ISOLATION = "isolation"
 }
 
 enum class LoginState {
@@ -10,4 +11,5 @@ enum class LoginState {
 
 object DateFormat {
     const val SHORT = "dd MMMM yyyy"
+    const val SIMPLE = "dd/MM/yyyy"
 }

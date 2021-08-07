@@ -7,17 +7,23 @@ import androidx.fragment.app.Fragment
 import id.temanisolasi.R
 import id.temanisolasi.databinding.ActivityMainBinding
 import id.temanisolasi.ui.base.home.HomeFragment
+import id.temanisolasi.ui.base.home.HomeViewModel
+import id.temanisolasi.ui.base.home.intro.IntroFragment
+import id.temanisolasi.ui.base.profile.ProfileFragment
 import id.temanisolasi.utils.Helpers.setRounded
 import id.temanisolasi.utils.SectionPagerAdapter
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private val model: HomeViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        model.getUser()
 
         binding.apply {
             bottomAppBar.setRounded()
@@ -25,15 +31,19 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this@MainActivity, "Coming Soon", Toast.LENGTH_SHORT).show()
             }
             viewPager.apply {
-                adapter = SectionPagerAdapter(
-                    this@MainActivity,
-                    listOf(
-                        HomeFragment.newInstance(),
-                        Fragment(),
-                        Fragment(),
-                        Fragment(),
+                model.user.observe(this@MainActivity) { user ->
+                    adapter = SectionPagerAdapter(
+                        this@MainActivity,
+                        listOf(
+                            if (user?.inIsolation == true)
+                                HomeFragment.newInstance()
+                            else IntroFragment.newInstance(),
+                            Fragment(),
+                            Fragment(),
+                            ProfileFragment.newInstance(),
+                        )
                     )
-                )
+                }
                 isUserInputEnabled = false
             }
 

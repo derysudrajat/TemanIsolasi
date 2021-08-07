@@ -1,6 +1,7 @@
 package id.temanisolasi.utils
 
 import android.app.Activity
+import android.app.DatePickerDialog
 import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
@@ -110,4 +111,33 @@ object Helpers {
     fun Timestamp.formatDate(format: String): String? {
         return SimpleDateFormat(format, Locale.getDefault()).format(this.toDate().time)
     }
+
+    fun String.toTimeStamp(format: String): Timestamp {
+        return Timestamp(SimpleDateFormat(format, Locale.getDefault()).parse(this))
+    }
+
+    fun Activity.showDatePicker(onDateResult: (date: String) -> Unit) {
+        val calendar = Calendar.getInstance()
+        val datePickerDialog = DatePickerDialog(
+            this,
+            { _, year, month, day ->
+                val newDate = Calendar.getInstance().apply {
+                    set(Calendar.YEAR, year)
+                    set(Calendar.MONTH, month)
+                    set(Calendar.DAY_OF_MONTH, day)
+                }
+                onDateResult(
+                    Timestamp(newDate.time).formatDate(DateFormat.SIMPLE) ?: ""
+                )
+            },
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        )
+        datePickerDialog.show()
+    }
+
+    fun getPlaceHolder(name: String): String = "https://icotar.com/initials/$name.png?s=200"
+
+    fun String.encodeName(): String = this.replace(" ", "%20")
 }

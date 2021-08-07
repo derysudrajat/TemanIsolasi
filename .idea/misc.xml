@@ -8,6 +8,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/TemanIsolasi/app/src/main/res/drawable/ic_back.xml" value="0.20092592592592592" />
         <entry key="..\:/TemanIsolasi/app/src/main/res/drawable/ic_games_fill.xml" value="0.22291666666666668" />
         <entry key="..\:/TemanIsolasi/app/src/main/res/drawable/ic_games_outline.xml" value="0.22291666666666668" />
         <entry key="..\:/TemanIsolasi/app/src/main/res/drawable/ic_guide.xml" value="0.22291666666666668" />
@@ -21,9 +22,24 @@
         <entry key="..\:/TemanIsolasi/app/src/main/res/drawable/sl_guide.xml" value="0.22291666666666668" />
         <entry key="..\:/TemanIsolasi/app/src/main/res/drawable/sl_home.xml" value="0.22291666666666668" />
         <entry key="..\:/TemanIsolasi/app/src/main/res/drawable/sl_profile.xml" value="0.22291666666666668" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/drawable/white_button_color.xml" value="0.22291666666666668" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/layout/activity_login.xml" value="0.25" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/layout/activity_register.xml" value="0.20092592592592592" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/layout/activity_start_isolation.xml" value="0.2" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/layout/dialog_base.xml" value="0.20358974358974358" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/layout/dialog_history.xml" value="0.20677083333333332" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/layout/dialog_isolation.xml" value="0.22" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/layout/fragment_begin_isolation.xml" value="0.33" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/layout/fragment_home.xml" value="0.20092592592592592" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/layout/fragment_intro.xml" value="0.22" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/layout/fragment_isolation_data.xml" value="0.20677083333333332" />
         <entry key="..\:/TemanIsolasi/app/src/main/res/layout/fragment_medicine.xml" value="0.25" />
-        <entry key="..\:/TemanIsolasi/app/src/main/res/layout/fragment_task.xml" value="0.25" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/layout/fragment_personal_data.xml" value="0.25" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/layout/fragment_profile.xml" value="0.25" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/layout/fragment_task.xml" value="0.2" />
         <entry key="..\:/TemanIsolasi/app/src/main/res/layout/fragment_temperature.xml" value="0.17407407407407408" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/layout/item_data_isolation.xml" value="0.33" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/layout/item_isolation_history.xml" value="0.25" />
         <entry key="..\:/TemanIsolasi/app/src/main/res/menu/main_bottom_nav_menu.xml" value="0.20358974358974358" />
       </map>
     </option>
