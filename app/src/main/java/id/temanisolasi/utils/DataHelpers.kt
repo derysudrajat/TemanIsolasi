@@ -13,4 +13,9 @@ object DataHelpers {
     val jsonAnimation = listOf(
         "https://assets5.lottiefiles.com/packages/lf20_TYZsbM.json"
     )
+
+    val listOfDataIsolation = listOf(
+        "Nama", "Jenis Kelamin", "Tanggal Lahir", "Alamat",
+        "Mulai Isolasi", "Golongan Darah", "Berat Badan", "Status Vaksinasi", "Tingkat Gejala"
+    )
 }

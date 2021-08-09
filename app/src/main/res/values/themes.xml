@@ -55,6 +55,18 @@
         <item name="shapeAppearanceOverlay">@style/DialogCorners</item>
     </style>
 
+    <style name="MaterialAlertDialog_Transparent" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="elevation">0dp</item>
+        <item name="elevationOverlayEnabled">false</item>
+        <item name="elevationOverlayColor">@android:color/transparent</item>
+        <item name="android:elevation">0dp</item>
+        <item name="colorSurface">@android:color/transparent</item>
+        <item name="colorOnSurface">@android:color/transparent</item>
+    </style>
+
     <style name="DialogCorners">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">16dp</item>
