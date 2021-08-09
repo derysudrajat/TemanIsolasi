@@ -32,7 +32,7 @@ class StartIsolationViewModel : ViewModel() {
         _progressPersonal.value = personalData
     }
 
-    private val isolationData = mutableListOf(false, false, false, false)
+    private val isolationData = mutableListOf(false, false, false, false, false)
     private val _progressIsolation = MutableLiveData<List<Boolean>>()
     val progressIsolation: LiveData<List<Boolean>> get() = _progressIsolation
 
@@ -58,6 +58,7 @@ class StartIsolationViewModel : ViewModel() {
             bloodType = isolation.bloodType
             weight = isolation.weight
             vaccinated = isolation.vaccinated
+            symptom = isolation.symptom
             userId = id
         }
     }

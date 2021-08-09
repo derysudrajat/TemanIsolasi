@@ -16,6 +16,6 @@ object DataHelpers {
 
     val listOfDataIsolation = listOf(
         "Nama", "Jenis Kelamin", "Tanggal Lahir", "Alamat",
-        "Mulai Isolasi", "Golongan Darah", "Berat Badan", "Status Vaksinasi"
+        "Mulai Isolasi", "Golongan Darah", "Berat Badan", "Status Vaksinasi", "Tingkat Gejala"
     )
 }

@@ -14,6 +14,7 @@ data class Isolation(
     var bloodType: String? = null,
     var weight: Int? = null,
     var vaccinated: Int? = null,
+    var symptom: Int? = null,
     var userId: String? = null,
     @DocumentId
     val id: String? = null,
@@ -28,7 +29,8 @@ fun Isolation.toList(): List<String> {
         this.startIsolation?.formatDate(DateFormat.SIMPLE) ?: "-",
         this.bloodType ?: "-",
         "${this.weight} Kg",
-        if (this.vaccinated == 1) "Sudah" else "Belum"
+        if (this.vaccinated == 1) "Sudah" else "Belum",
+        if (this.symptom == 0) "Tidak Bergejala" else "Bergejala Ringan"
     )
 }
 

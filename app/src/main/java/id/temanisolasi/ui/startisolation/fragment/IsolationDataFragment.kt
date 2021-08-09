@@ -57,8 +57,14 @@ class IsolationDataFragment : Fragment() {
                 requireContext(), R.layout.simple_dropdown_item_1line, vaccinatedStatus
             )
 
+            val symptomLevel = listOf("Tidak Bergejala", "Bergejala Ringan")
+            val adapterSymptom = ArrayAdapter(
+                requireContext(), R.layout.simple_dropdown_item_1line, symptomLevel
+            )
+
             (edtBloodType as? AutoCompleteTextView)?.setAdapter(adapterBloodType)
             (edtVaccinated as? AutoCompleteTextView)?.setAdapter(adapterVaccinated)
+            (edtSymptom as? AutoCompleteTextView)?.setAdapter(adapterSymptom)
 
             edtDate.setOnClickListener { requireActivity().showDatePicker { edtDate.setText(it) } }
             tilDate.setEndIconOnClickListener {
@@ -71,16 +77,11 @@ class IsolationDataFragment : Fragment() {
                 .launch { edtBloodType.afterTextChanged { validateNotEmpty(it, 1, tilBloodType) } }
             lifecycleScope
                 .launch { edtWeight.afterTextChanged { validateNotEmpty(it, 2, tilWeight) } }
+            lifecycleScope.launch {
+                edtVaccinated.afterTextChanged { validateNotEmpty(it, 3, tilVaccinated) }
+            }
             lifecycleScope
-                .launch {
-                    edtVaccinated.afterTextChanged {
-                        validateNotEmpty(
-                            it,
-                            3,
-                            tilVaccinated
-                        )
-                    }
-                }
+                .launch { edtSymptom.afterTextChanged { validateNotEmpty(it, 4, tilSymptom) } }
         }
 
         model.progressIsolation.observe(viewLifecycleOwner) { progress ->
@@ -92,7 +93,8 @@ class IsolationDataFragment : Fragment() {
                         startIsolation = edtDate.getPlainText().toTimeStamp(DateFormat.SIMPLE),
                         bloodType = edtBloodType.getPlainText(),
                         weight = edtWeight.getPlainText().toInt(),
-                        vaccinated = if (edtVaccinated.getPlainText() == "Sudah") 1 else 0
+                        vaccinated = if (edtVaccinated.getPlainText() == "Sudah") 1 else 0,
+                        symptom = if (edtSymptom.getPlainText() == "Tidak Bergejala") 0 else 1
                     )
                 )
             }
