@@ -3,12 +3,16 @@ package id.temanisolasi.utils
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Context
+import android.net.Uri
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
+import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
@@ -140,4 +144,18 @@ object Helpers {
     fun getPlaceHolder(name: String): String = "https://icotar.com/initials/$name.png?s=200"
 
     fun String.encodeName(): String = this.replace(" ", "%20")
+
+    fun ActivityResult.handleImagePicker(
+        context: Context,
+        onResult: (Uri) -> Unit
+    ) {
+        when (this.resultCode) {
+            Activity.RESULT_OK -> onResult(this.data?.data ?: "".toUri())
+            ImagePicker.RESULT_ERROR -> showToast(
+                context as Activity,
+                ImagePicker.getError(this.data)
+            )
+            else -> showToast(context as Activity, "Batal")
+        }
+    }
 }

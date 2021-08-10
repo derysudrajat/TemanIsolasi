@@ -1,9 +1,10 @@
 package id.temanisolasi.ui.base
 
 import android.os.Bundle
-import android.widget.Toast
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import id.temanisolasi.R
 import id.temanisolasi.databinding.ActivityMainBinding
 import id.temanisolasi.ui.base.home.HomeFragment
@@ -17,18 +18,21 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var standardBottomSheetBehavior: BottomSheetBehavior<View>
     private val model: HomeViewModel by viewModel()
+    private var bottomSheetState = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setupBottomSheet()
         model.getUser()
 
         binding.apply {
             bottomAppBar.setRounded()
             btnAddReport.setOnClickListener {
-                Toast.makeText(this@MainActivity, "Coming Soon", Toast.LENGTH_SHORT).show()
+                showBottomView()
             }
             viewPager.apply {
                 model.user.observe(this@MainActivity) { user ->
@@ -65,5 +69,39 @@ class MainActivity : AppCompatActivity() {
 
     private fun setPagePosition(position: Int) {
         binding.viewPager.currentItem = position
+    }
+
+    fun showBottomView() {
+        standardBottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+    }
+
+    fun hideBottomView() {
+        standardBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+    }
+
+    private fun setupBottomSheet() = with(binding) {
+        supportFragmentManager.beginTransaction()
+            .replace(fragmentContainer.id, Fragment())
+            .commit()
+
+        standardBottomSheetBehavior = BottomSheetBehavior.from(standardBottomSheet)
+        standardBottomSheetBehavior.apply {
+            isHideable = true
+            state = BottomSheetBehavior.STATE_HIDDEN
+            saveFlags = BottomSheetBehavior.SAVE_ALL
+        }
+        standardBottomSheetBehavior.addBottomSheetCallback(
+            object : BottomSheetBehavior.BottomSheetCallback() {
+                override fun onStateChanged(bottomSheet: View, newState: Int) {
+                    bottomSheetState = newState
+                }
+
+                override fun onSlide(bottomSheet: View, slideOffset: Float) {}
+            })
+    }
+
+    override fun onBackPressed() {
+        if (bottomSheetState == BottomSheetBehavior.STATE_HALF_EXPANDED) hideBottomView()
+        else finish()
     }
 }

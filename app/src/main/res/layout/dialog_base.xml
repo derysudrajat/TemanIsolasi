@@ -18,7 +18,7 @@
         app:lottie_rawRes="@raw/home_two" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tvText"
         style="@style/Text.Title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
