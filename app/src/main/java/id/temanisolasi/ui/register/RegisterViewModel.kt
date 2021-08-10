@@ -12,7 +12,7 @@ import id.temanisolasi.R
 import id.temanisolasi.data.model.User
 import id.temanisolasi.data.repo.State
 import id.temanisolasi.data.repo.remote.firebase.auth.AuthRepository
-import id.temanisolasi.data.repo.remote.firebase.firestore.FirestoreUserRepository
+import id.temanisolasi.data.repo.remote.firebase.firestore.user.FirestoreUserRepository
 import id.temanisolasi.utils.DialogHelpers
 import id.temanisolasi.utils.Helpers
 import kotlinx.coroutines.flow.collect

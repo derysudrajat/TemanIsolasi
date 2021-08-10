@@ -13,6 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TemanIsolasi">
         <activity
+            android:name=".ui.base.profile.editprofile.EditProfileActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name=".ui.startisolation.StartIsolationActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize" />

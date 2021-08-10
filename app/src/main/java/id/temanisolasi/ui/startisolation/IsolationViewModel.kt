@@ -8,8 +8,8 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import id.temanisolasi.data.model.Isolation
 import id.temanisolasi.data.repo.State
-import id.temanisolasi.data.repo.remote.firebase.firestore.FirestoreUserRepository
 import id.temanisolasi.data.repo.remote.firebase.firestore.isolation.FirestoreIsolationRepository
+import id.temanisolasi.data.repo.remote.firebase.firestore.user.FirestoreUserRepository
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 

@@ -1,10 +1,13 @@
 package id.temanisolasi.ui.base.profile
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import coil.load
@@ -12,12 +15,15 @@ import coil.transform.CircleCropTransformation
 import id.temanisolasi.R
 import id.temanisolasi.data.model.Isolation
 import id.temanisolasi.data.model.toList
+import id.temanisolasi.data.repo.remote.firebase.storage.StorageUserHelpers
 import id.temanisolasi.databinding.DialogIsolationBinding
 import id.temanisolasi.databinding.FragmentProfileBinding
 import id.temanisolasi.ui.base.home.HomeViewModel
+import id.temanisolasi.ui.base.profile.editprofile.EditProfileActivity
 import id.temanisolasi.ui.startisolation.IsolationViewModel
 import id.temanisolasi.utils.Helpers
 import id.temanisolasi.utils.Helpers.encodeName
+import id.temanisolasi.utils.STORAGE.getAvaLocation
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProfileFragment : Fragment(), ItemIsolationListener {
@@ -40,14 +46,20 @@ class ProfileFragment : Fragment(), ItemIsolationListener {
         homeModel.getUser()
         isolationModel.getDataIsolation()
 
-        homeModel.user.observe(viewLifecycleOwner) {
+        homeModel.user.observe(viewLifecycleOwner) { user ->
             with(binding) {
-                tvName.text = it.name
-                ivAva.load(
-                    it.img ?: Helpers.getPlaceHolder(it.name?.encodeName() ?: "")
-                ) {
-                    crossfade(true)
-                    transformations(CircleCropTransformation())
+                tvName.text = user.name
+                user.img.let { img ->
+                    if (img != null) StorageUserHelpers.getImgUrl(
+                        user.id?.getAvaLocation(img) ?: ""
+                    ) { loadAva(it) }
+                    else loadAva(Helpers.getPlaceHolder(user.name?.encodeName() ?: "").toUri())
+                }
+
+
+                btnEdit.setOnClickListener {
+                    startActivity(Intent(requireContext(), EditProfileActivity::class.java)
+                        .apply { putExtra(EditProfileActivity.EXTRA_USER, user) })
                 }
             }
         }
@@ -59,6 +71,13 @@ class ProfileFragment : Fragment(), ItemIsolationListener {
             }
         }
 
+    }
+
+    private fun loadAva(it: Uri) = with(binding) {
+        ivAva.load(it) {
+            crossfade(true)
+            transformations(CircleCropTransformation())
+        }
     }
 
     override fun onItemClick(isolation: Isolation) {
@@ -78,11 +97,6 @@ class ProfileFragment : Fragment(), ItemIsolationListener {
         }
 
         dialog.show()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     companion object {

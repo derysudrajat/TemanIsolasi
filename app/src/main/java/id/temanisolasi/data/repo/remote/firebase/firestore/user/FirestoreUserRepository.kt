@@ -1,9 +1,10 @@
-package id.temanisolasi.data.repo.remote.firebase.firestore
+package id.temanisolasi.data.repo.remote.firebase.firestore.user
 
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import id.temanisolasi.data.model.User
+import id.temanisolasi.data.model.mapped
 import id.temanisolasi.data.repo.State
 import id.temanisolasi.utils.COLLECTION
 import kotlinx.coroutines.Dispatchers
@@ -48,6 +49,16 @@ class FirestoreUserRepository : FirestoreUserDataSource {
     override fun updateUserIsInIsolation(uid: String, inIsolation: Boolean) = flow {
         emit(State.loading())
         val snapshot = instance.document(uid).update("inIsolation", inIsolation)
+        snapshot.await()
+        if (snapshot.isSuccessful) emit(State.success(true))
+    }.catch {
+        emit(State.failed(it.message ?: ""))
+    }.flowOn(Dispatchers.IO)
+
+    override fun updateUser(user: User) = flow {
+        emit(State.loading())
+        val snapshot = instance.document(user.id ?: "")
+            .update(user.mapped())
         snapshot.await()
         if (snapshot.isSuccessful) emit(State.success(true))
     }.catch {
