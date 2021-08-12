@@ -6,6 +6,7 @@ import android.content.Context
 import android.net.Uri
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
@@ -27,6 +28,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 object Helpers {
 
@@ -157,5 +159,42 @@ object Helpers {
             )
             else -> showToast(context as Activity, "Batal")
         }
+    }
+
+    fun View.showView() {
+        this.visibility = View.VISIBLE
+    }
+
+    fun View.hideView() {
+        this.visibility = View.GONE
+    }
+
+    fun Timestamp.dayFrom(day: Timestamp): Long {
+        val diff = day.toDate().time - this.toDate().time
+        return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) + 1
+    }
+
+    fun Timestamp.getHour(): Int {
+        val cal = Calendar.getInstance().apply { time = this@getHour.toDate() }
+        return cal.get(Calendar.HOUR_OF_DAY)
+    }
+
+    fun getStatus(time: String, stateTime: TIME): Int = when {
+        time != "-" -> 0
+        time == "-" && isInTime(stateTime) -> 1
+        else -> 2
+    }
+
+    fun isInTime(stateTime: TIME): Boolean = when (stateTime) {
+        TIME.DAY -> Timestamp.now().getHour() < 13
+        TIME.NOON -> Timestamp.now().getHour() < 19
+        TIME.NIGHT -> Timestamp.now().getHour() <= 24
+    }
+
+    fun getTimeStateNow(): TIME = when (Timestamp.now().getHour()) {
+        in 7..12 -> TIME.DAY
+        in 13..18 -> TIME.NOON
+        in 19..24 -> TIME.NIGHT
+        else -> TIME.DAY
     }
 }

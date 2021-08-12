@@ -3,6 +3,8 @@
     package="id.temanisolasi">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name=".di.MainApplication"
@@ -12,6 +14,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TemanIsolasi">
+        <receiver
+            android:name=".provider.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity
+            android:name=".ui.base.inputdata.InputDataActivity"
+            android:exported="true" />
         <activity
             android:name=".ui.base.profile.editprofile.EditProfileActivity"
             android:exported="true"

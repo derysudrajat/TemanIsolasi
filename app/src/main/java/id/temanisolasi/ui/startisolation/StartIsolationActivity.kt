@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import id.temanisolasi.R
 import id.temanisolasi.databinding.ActivityStartIsolationBinding
+import id.temanisolasi.provider.AlarmReceiver
 import id.temanisolasi.ui.startisolation.fragment.BeginIsolationFragment
 import id.temanisolasi.ui.startisolation.fragment.IsolationDataFragment
 import id.temanisolasi.ui.startisolation.fragment.PersonalDataFragment
@@ -16,6 +17,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class StartIsolationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityStartIsolationBinding
+    private lateinit var alarmReceiver: AlarmReceiver
     private val model: StartIsolationViewModel by viewModels()
     private val isolationModel: IsolationViewModel by viewModel()
     private var currentPage = 0
@@ -25,6 +27,8 @@ class StartIsolationActivity : AppCompatActivity() {
         binding = ActivityStartIsolationBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
+        alarmReceiver = AlarmReceiver()
+
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(R.drawable.ic_back)
@@ -61,6 +65,22 @@ class StartIsolationActivity : AppCompatActivity() {
                 if (currentPage < 3) populatePosition(currentPage)
                 else model.getDataIsolation().let { isolation ->
                     isolationModel.addNewDataIsolation(isolation)
+                    alarmReceiver.apply {
+                        setAlarm(
+                            this@StartIsolationActivity,
+                            AlarmReceiver.Companion.NOTIFICATION_ID.MORNING
+                        )
+                        if (isolation.symptom == 1) {
+                            setAlarm(
+                                this@StartIsolationActivity,
+                                AlarmReceiver.Companion.NOTIFICATION_ID.NOON
+                            )
+                            setAlarm(
+                                this@StartIsolationActivity,
+                                AlarmReceiver.Companion.NOTIFICATION_ID.NIGHT
+                            )
+                        }
+                    }
                     finish()
                 }
             }

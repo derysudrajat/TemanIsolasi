@@ -18,10 +18,10 @@ class DialogHelpers(private val activity: Activity) {
         )
         builder.setView(inflater.inflate(layout, null))
             .setCancelable(false)
+        dialog = builder.create()
     }
 
     fun showDialog() {
-        dialog = builder.create()
         dialog!!.show()
         activity.hideKeyboard()
     }

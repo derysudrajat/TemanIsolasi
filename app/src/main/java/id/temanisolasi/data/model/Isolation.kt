@@ -1,10 +1,13 @@
 package id.temanisolasi.data.model
 
+import android.os.Parcelable
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentId
 import id.temanisolasi.utils.DateFormat
 import id.temanisolasi.utils.Helpers.formatDate
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Isolation(
     var name: String? = null,
     var gender: Int? = null,
@@ -15,10 +18,13 @@ data class Isolation(
     var weight: Int? = null,
     var vaccinated: Int? = null,
     var symptom: Int? = null,
+    var passedDay: Int? = 1,
+    var active: Boolean? = true,
+    var listReport: MutableList<Report>? = mutableListOf(Report()),
     var userId: String? = null,
     @DocumentId
     val id: String? = null,
-)
+) : Parcelable
 
 fun Isolation.toList(): List<String> {
     return listOf(
