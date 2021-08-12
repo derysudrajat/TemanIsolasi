@@ -25,3 +25,5 @@ object STORAGE {
         append(ROOT_AVA).append(this@getAvaLocation).append("/").append(pathAva)
     }
 }
+
+enum class TIME { DAY, NOON, NIGHT }

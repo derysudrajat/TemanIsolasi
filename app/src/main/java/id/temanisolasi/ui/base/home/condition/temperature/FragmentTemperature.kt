@@ -5,16 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.google.firebase.Timestamp
 import id.temanisolasi.databinding.FragmentTemperatureBinding
+import id.temanisolasi.ui.base.BaseSharedViewModel
 import id.temanisolasi.ui.base.home.condition.LineChartViewHolder
 import id.temanisolasi.utils.DateFormat
-import id.temanisolasi.utils.Helpers
 import id.temanisolasi.utils.Helpers.formatDate
 
 class FragmentTemperature : Fragment() {
 
     private var _binding: FragmentTemperatureBinding? = null
+    private val sharedModel: BaseSharedViewModel by activityViewModels()
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -27,17 +29,20 @@ class FragmentTemperature : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Helpers.dummyTemp.let {
-            populateChart(it)
-            binding.apply {
-                tvDataContent.text = buildString { append(it.last()).append("°") }
-                tvDate.text = Timestamp.now().formatDate(DateFormat.SHORT)
+        sharedModel.activeIsolation.observe(viewLifecycleOwner) {
+            it.listReport?.map { report -> report.temperature }?.let { tempList ->
+                populateChart(tempList.toMutableList())
+                binding.apply {
+                    tvDataContent.text =
+                        buildString { append(tempList[(it.passedDay ?: 1) - 1]).append("°") }
+                    tvDate.text = Timestamp.now().formatDate(DateFormat.SHORT)
+                }
             }
-        }
 
+        }
     }
 
-    private fun populateChart(dummyTemp: MutableList<Float>) {
+    private fun populateChart(dummyTemp: MutableList<Float?>) {
         val lineChartViewHolder = LineChartViewHolder(requireContext(), binding)
         lineChartViewHolder.setDataChart(dummyTemp)
     }

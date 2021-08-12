@@ -48,37 +48,33 @@
         app:srcCompat="@drawable/ic_rise" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/ivStatDay"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="@+id/imageView4"
         app:layout_constraintStart_toStartOf="@+id/imageView4"
         app:layout_constraintTop_toBottomOf="@+id/imageView4"
-        app:srcCompat="@drawable/ic_circle_check"
         app:tint="@color/white" />
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/ivStatNoon"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginTop="16dp"
-        android:rotation="45"
         app:layout_constraintEnd_toEndOf="@+id/imageView2"
         app:layout_constraintStart_toStartOf="@+id/imageView2"
         app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:srcCompat="@drawable/ic_circle_add"
         app:tint="@color/white" />
 
     <ImageView
-        android:id="@+id/imageView7"
+        android:id="@+id/ivStatNight"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="@+id/imageView3"
         app:layout_constraintStart_toStartOf="@+id/imageView3"
         app:layout_constraintTop_toBottomOf="@+id/imageView3"
-        app:srcCompat="@drawable/ic_circle_remove"
         app:tint="@color/white" />
 
 
@@ -91,10 +87,10 @@
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="2dp"
         app:cardElevation="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-        app:layout_constraintEnd_toStartOf="@+id/imageView6"
-        app:layout_constraintStart_toEndOf="@+id/imageView5"
-        app:layout_constraintTop_toTopOf="@+id/imageView5" />
+        app:layout_constraintBottom_toBottomOf="@+id/ivStatDay"
+        app:layout_constraintEnd_toStartOf="@+id/ivStatNoon"
+        app:layout_constraintStart_toEndOf="@+id/ivStatDay"
+        app:layout_constraintTop_toTopOf="@+id/ivStatDay" />
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="0dp"
@@ -104,10 +100,10 @@
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="2dp"
         app:cardElevation="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView6"
-        app:layout_constraintEnd_toStartOf="@+id/imageView7"
-        app:layout_constraintStart_toEndOf="@+id/imageView6"
-        app:layout_constraintTop_toTopOf="@+id/imageView6" />
+        app:layout_constraintBottom_toBottomOf="@+id/ivStatNoon"
+        app:layout_constraintEnd_toStartOf="@+id/ivStatNight"
+        app:layout_constraintStart_toEndOf="@+id/ivStatNoon"
+        app:layout_constraintTop_toTopOf="@+id/ivStatNoon" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
