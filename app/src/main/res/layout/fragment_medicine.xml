@@ -93,6 +93,7 @@
         app:layout_constraintTop_toTopOf="@+id/ivStatDay" />
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@id/materialCardView2"
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginStart="8dp"
@@ -104,6 +105,22 @@
         app:layout_constraintEnd_toStartOf="@+id/ivStatNight"
         app:layout_constraintStart_toEndOf="@+id/ivStatNoon"
         app:layout_constraintTop_toTopOf="@+id/ivStatNoon" />
+
+    <TextView
+        android:id="@+id/tvOtg"
+        style="@style/Text.Desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="48dp"
+        android:text="Anda belum perlu minum obat secara rutin\n\nCek panduan untuk penjelasan dan tips bagi Orang Tanpa Gejala"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

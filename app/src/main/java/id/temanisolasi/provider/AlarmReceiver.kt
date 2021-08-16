@@ -1,9 +1,6 @@
 package id.temanisolasi.provider
 
-import android.app.AlarmManager
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
+import android.app.*
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -21,45 +18,67 @@ import id.temanisolasi.R
 import id.temanisolasi.data.model.Isolation
 import id.temanisolasi.data.model.Report
 import id.temanisolasi.ui.base.MainActivity
+import id.temanisolasi.ui.finishisolation.FinishIsolationActivity
 import id.temanisolasi.utils.COLLECTION
 import id.temanisolasi.utils.DataHelpers
 import id.temanisolasi.utils.Helpers.dayFrom
+import id.temanisolasi.utils.Helpers.isDarkMode
 import java.util.*
 
 class AlarmReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
-        intent.extras?.getInt(EXTRA_NOTIFICATION_ID)?.let {
-            showAlarmNotification(context, it)
+        intent.extras?.getInt(EXTRA_NOTIFICATION_ID)?.let { notificationId ->
+            var isIsolationFinish: Boolean
+            if (notificationId == NOTIFICATION_ID.MORNING) getActiveIsolation {
+                val dayDiff = it.startIsolation?.dayFrom(Timestamp.now())
+                val isNewDay = dayDiff?.toInt() ?: 1 > it.passedDay ?: 1
+                if (isNewDay) postNewReport(it.id, dayDiff)
+                isIsolationFinish = (isNewDay && it.passedDay == 14)
+                showAlarmNotification(context, notificationId, isIsolationFinish, it.id)
+            } else {
+                isIsolationFinish = false
+                showAlarmNotification(context, notificationId, isIsolationFinish)
+            }
         }
     }
 
-    private fun showAlarmNotification(context: Context, notificationId: Int) {
-        if (notificationId == NOTIFICATION_ID.MORNING)
-            getActiveIsolation { checkIsNewDay(it) }
-
+    private fun showAlarmNotification(
+        context: Context,
+        notificationId: Int,
+        isIsolationFinish: Boolean,
+        id: String? = null
+    ) {
         val notificationManagerCompat =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-        val intent = Intent(context, MainActivity::class.java)
+
+        val intent = if (isIsolationFinish) Intent(context, FinishIsolationActivity::class.java)
+            .apply { putExtra(FinishIsolationActivity.EXTRA_ISOLATION, id) }
+        else Intent(context, MainActivity::class.java)
+
         intent.flags =
             Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP or
                     Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
 
         val pendingIntent = PendingIntent.getActivity(
-            context,
-            NOTIFICATION_REQUEST_CODE,
-            intent,
-            PendingIntent.FLAG_UPDATE_CURRENT
+            context, NOTIFICATION_REQUEST_CODE,
+            intent, PendingIntent.FLAG_UPDATE_CURRENT
         )
-        val message = DataHelpers.notificationMessage[notificationId - 101]
+        val message = getMessage(notificationId, isIsolationFinish)
 
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_logo)
-            .setContentTitle(NOTIFICATION_TITLE)
+            .setSmallIcon(R.drawable.ic_logo_notification)
+            .setContentTitle(getNotificationTitle(isIsolationFinish))
+            .setAutoCancel(true)
+            .setColor(
+                ContextCompat.getColor(
+                    context,
+                    if ((context as Activity).isDarkMode()) R.color.white else R.color.primary
+                )
+            )
             .setStyle(NotificationCompat.BigTextStyle().bigText(message))
             .setContentText(message)
-            .setColor(ContextCompat.getColor(context, android.R.color.transparent))
             .setContentIntent(pendingIntent)
             .setPriority(NotificationCompat.PRIORITY_MAX)
             .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
@@ -85,6 +104,10 @@ class AlarmReceiver : BroadcastReceiver() {
 
         notificationManagerCompat.notify(notificationId, notification)
     }
+
+    private fun getMessage(notificationId: Int, isolationFinish: Boolean): String =
+        if (isolationFinish) "Hebat, kamu udah berjuang selama ini, Akhirnya bisa bertemu orang tersayang, tapi tetap patuhi protokol kesahatan, ya"
+        else DataHelpers.notificationMessage[notificationId - 101]
 
     fun setAlarm(context: Context, notificationId: Int) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
@@ -119,13 +142,8 @@ class AlarmReceiver : BroadcastReceiver() {
             .get()
             .addOnSuccessListener {
                 it.toObjects(Isolation::class.java).first()
-                    ?.let { onSuccess(it) }
+                    ?.let { data -> onSuccess(data) }
             }
-    }
-
-    private fun checkIsNewDay(it: Isolation) {
-        val dayDiff = it.startIsolation?.dayFrom(Timestamp.now())
-        if (dayDiff?.toInt() ?: 1 > it.passedDay ?: 1) postNewReport(it.id, dayDiff)
     }
 
     private fun postNewReport(id: String?, dayDiff: Long?) {
@@ -154,17 +172,16 @@ class AlarmReceiver : BroadcastReceiver() {
         val intent = Intent(context, AlarmReceiver::class.java)
 
         return PendingIntent.getBroadcast(
-            context,
-            notificationId,
-            intent,
-            PendingIntent.FLAG_NO_CREATE
+            context, notificationId, intent, PendingIntent.FLAG_NO_CREATE
         ) != null
     }
 
+    private fun getNotificationTitle(isIsolationFinish: Boolean): String =
+        if (isIsolationFinish) "Isolasi Selesai"
+        else "Penginat Isolasi"
+
     companion object {
-        const val NOTIFICATION_TITLE = "Pengingat Isolasi"
         const val NOTIFICATION_REQUEST_CODE = 102
-        const val EXTRA_MESSAGE = "message"
         const val EXTRA_NOTIFICATION_ID = "extra_notification_id"
         const val CHANNEL_ID = "Pengingat"
         const val CHANNEL_NAME = "Mulai Isolasi"

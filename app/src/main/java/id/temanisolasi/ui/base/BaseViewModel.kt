@@ -26,7 +26,9 @@ class BaseViewModel(
         }
     }
 
-    fun addNewReport(id: String, newPassedDay: Int) = viewModelScope.launch {
-        isolationRepository.postNewReport(id, newPassedDay).collect()
+    fun addNewReport(id: String, newPassedDay: Int, isFinish: () -> Unit) = viewModelScope.launch {
+        isolationRepository.postNewReport(id, newPassedDay).collect {
+            if (it is State.Success) isFinish()
+        }
     }
 }

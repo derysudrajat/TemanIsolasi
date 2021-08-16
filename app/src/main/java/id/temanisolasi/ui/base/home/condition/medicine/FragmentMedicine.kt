@@ -11,6 +11,8 @@ import id.temanisolasi.R
 import id.temanisolasi.databinding.FragmentMedicineBinding
 import id.temanisolasi.ui.base.BaseSharedViewModel
 import id.temanisolasi.utils.Helpers.getStatus
+import id.temanisolasi.utils.Helpers.hideView
+import id.temanisolasi.utils.Helpers.showView
 import id.temanisolasi.utils.TIME
 
 class FragmentMedicine : Fragment() {
@@ -35,9 +37,17 @@ class FragmentMedicine : Fragment() {
                 val todayMedicine = med[(it.passedDay ?: 1) - 1]
 
                 with(binding) {
-                    setIcon(ivStatDay, todayMedicine?.get(0), TIME.DAY)
-                    setIcon(ivStatNoon, todayMedicine?.get(1), TIME.NOON)
-                    setIcon(ivStatNight, todayMedicine?.get(2), TIME.NIGHT)
+                    if (it.symptom == 0) {
+                        listOf(
+                            imageView2, imageView3, imageView4, ivStatDay, ivStatNoon,
+                            ivStatNight, materialCardView, materialCardView2
+                        ).forEach { view -> view.hideView() }
+                        tvOtg.showView()
+                    } else {
+                        setIcon(ivStatDay, todayMedicine?.get(0), TIME.DAY)
+                        setIcon(ivStatNoon, todayMedicine?.get(1), TIME.NOON)
+                        setIcon(ivStatNight, todayMedicine?.get(2), TIME.NIGHT)
+                    }
                 }
             }
         }

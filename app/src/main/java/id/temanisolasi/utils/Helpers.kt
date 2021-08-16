@@ -3,6 +3,7 @@ package id.temanisolasi.utils
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Context
+import android.content.res.Configuration
 import android.net.Uri
 import android.text.Editable
 import android.text.TextWatcher
@@ -197,4 +198,8 @@ object Helpers {
         in 19..24 -> TIME.NIGHT
         else -> TIME.DAY
     }
+
+    fun Activity.isDarkMode(): Boolean =
+        this.resources?.configuration?.uiMode
+            ?.and(Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
 }

@@ -8,6 +8,7 @@ import id.temanisolasi.ui.base.BaseViewModel
 import id.temanisolasi.ui.base.home.HomeViewModel
 import id.temanisolasi.ui.base.inputdata.InputDataViewModel
 import id.temanisolasi.ui.base.profile.editprofile.EditProfileViewModel
+import id.temanisolasi.ui.finishisolation.FinishIsolationViewModel
 import id.temanisolasi.ui.login.LoginViewModel
 import id.temanisolasi.ui.register.RegisterViewModel
 import id.temanisolasi.ui.startisolation.IsolationViewModel
@@ -29,4 +30,5 @@ val viewModelModule = module {
     viewModel { EditProfileViewModel(get(), get()) }
     viewModel { BaseViewModel(get()) }
     viewModel { InputDataViewModel(get()) }
+    viewModel { FinishIsolationViewModel(get(), get()) }
 }
