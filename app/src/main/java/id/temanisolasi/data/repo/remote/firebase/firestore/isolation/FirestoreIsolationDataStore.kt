@@ -12,5 +12,6 @@ sealed interface FirestoreIsolationDataStore {
     fun getActiveIsolation(uid: String): Flow<State<Isolation>>
     fun updateIsolationData(id: String, reports: MutableList<Report>): Flow<State<Boolean>>
     fun postNewReport(id: String, newPassedDay: Int): Flow<State<Boolean>>
+    fun updateStatusIsolation(id: String, status: Boolean): Flow<State<Boolean>>
 
 }

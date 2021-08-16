@@ -19,6 +19,7 @@ import id.temanisolasi.provider.AlarmReceiver
 import id.temanisolasi.ui.base.BaseViewModel
 import id.temanisolasi.ui.base.MainActivity
 import id.temanisolasi.ui.base.home.HomeViewModel
+import id.temanisolasi.ui.finishisolation.FinishIsolationActivity
 import id.temanisolasi.ui.login.LoginActivity
 import id.temanisolasi.ui.register.RegisterActivity
 import id.temanisolasi.utils.Helpers.dayFrom
@@ -59,6 +60,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun goToMainActivity() {
+        model.user.removeObservers(this)
         val morningAlarm =
             alarmManager.isAlarmSet(this, AlarmReceiver.Companion.NOTIFICATION_ID.MORNING)
         val noonAlarm = alarmManager.isAlarmSet(this, AlarmReceiver.Companion.NOTIFICATION_ID.NOON)
@@ -70,15 +72,30 @@ class SplashActivity : AppCompatActivity() {
         )
         baseModel.getActiveIsolationData()
         baseModel.activeIsolation.observe(this) {
+            baseModel.activeIsolation.removeObservers(this)
             val dayDiff = it.startIsolation?.dayFrom(Timestamp.now())
-            if (dayDiff?.toInt() ?: 1 > it.passedDay ?: 1) postNewReport(it.id, dayDiff)
+            val isNewDay = dayDiff?.toInt() ?: 1 > it.passedDay ?: 1
+
+            val intent = if (isNewDay && it.passedDay == 14)
+                Intent(this, FinishIsolationActivity::class.java)
+                    .apply { putExtra(FinishIsolationActivity.EXTRA_ISOLATION, it.id) }
+            else Intent(this, MainActivity::class.java)
+
+            Log.d("TAG", "goToMainActivity: diff = $dayDiff, $isNewDay")
+
+            if (isNewDay && it.passedDay != 14) postNewReport(it.id, dayDiff, intent)
+            else {
+                startActivity(intent)
+                finish()
+            }
         }
-        startActivity(Intent(this, MainActivity::class.java))
-        finish()
     }
 
-    private fun postNewReport(id: String?, dayDiff: Long?) {
-        baseModel.addNewReport(id ?: "", (dayDiff ?: 1).toInt())
+    private fun postNewReport(id: String?, dayDiff: Long?, intent: Intent) {
+        baseModel.addNewReport(id ?: "", (dayDiff ?: 1).toInt()) {
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun goToLoginActivity() {

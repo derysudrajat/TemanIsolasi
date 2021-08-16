@@ -89,4 +89,13 @@ class FirestoreIsolationRepository : FirestoreIsolationDataStore {
     }.catch {
         emit(State.failed(it.message ?: ""))
     }.flowOn(Dispatchers.IO)
+
+    override fun updateStatusIsolation(id: String, status: Boolean) = flow {
+        emit(State.loading())
+        val snapshot = instance.document(id).update("active", status)
+        snapshot.await()
+        if (snapshot.isSuccessful) emit(State.success(true))
+    }.catch {
+        emit(State.failed(it.message ?: ""))
+    }.flowOn(Dispatchers.IO)
 }
