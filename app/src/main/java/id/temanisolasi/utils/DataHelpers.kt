@@ -1,7 +1,9 @@
 package id.temanisolasi.utils
 
 import id.temanisolasi.R
+import id.temanisolasi.data.model.Guide
 import id.temanisolasi.data.model.InputData
+import id.temanisolasi.data.model.Question
 
 object DataHelpers {
     val errorLoginMessage =
@@ -66,10 +68,42 @@ object DataHelpers {
         "Ini hari terakhirmu, kamu lebih kuat dari yang kamu tau selamat!",
     )
 
+    val notificationTitle = listOf(
+        "Selamat Pagi",
+        "Tau ga? Tertawa itu bisa jadi obat terbaik.",
+        "Hallo {0}, udah malem jangan scroll medsos terus"
+    )
+
     val notificationMessage = listOf(
-        "Selamat Pagi, Jangan lupa buat input data kamu hari ini ya",
-        "Waktunya minum obat siang, jangan lupa untuk diminum obatnya dan input datanya ya...",
-        "Ayo sudah waktunya minum obat malam, jangan lupa untuk input datanya juga ya..."
+        "Yuk, jangan lupa isi data kesehatanmu hari ini!",
+        "Tapi kalau tertawa tanpa alasan yang jelas, mungkin kamu butuh obat, Yuk diminum obatnya.",
+        "Yuk, minum obat malamnya, daripada nanti udah ngantuk mending sekarang aja"
+    )
+
+    val listOfGuide = listOf(
+        Guide(
+            "https://user-images.githubusercontent.com/32610660/129569534-bf302963-6e6f-4fb2-aa1e-4e183aeb1a3e.png",
+            "Awal Infeksi"
+        ),
+        Guide(
+            "https://user-images.githubusercontent.com/32610660/129569547-ba0d3134-edd5-48e9-a4b8-2b6e42d26bd5.png",
+            "Masa Isolasi"
+        ),
+        Guide(
+            "https://user-images.githubusercontent.com/32610660/129569556-97e3a26b-e3c2-4c90-9b9a-9acbdd46003a.png",
+            "Selesai Isolasi"
+        )
+    )
+
+    val listOfQuestion = listOf(
+        Question(
+            "Apa yang dilakukan jika sudah 10 hari isolasi mandiri pada pasien OTG  dan pasien ringan?",
+            "OTG tidak harus PCR jika RINGAN harus melakukan PCR jika negative tunggu bebas gejala 10 hari dihitung dari bebas gejala"
+        ),
+        Question(
+            "Jika isoman suplemen apa yang harus dimakan dan makanan apa yang  harus  dihindari?",
+            "Makanan yang harus dihindari adalah makanan berminyak yang mengandung lemak berlebihan dan kolesterol, konsumsi gula dibatasi terutama pada penderita diabetes , sediakan oksigen jika bergejala sedang. Kemudian makana makanan yang mengandung antioksidan seperti brokoli, kembang kol, tomat, wortel Malam bawang merah, bawang putih, jahe merah, air yang cukup. ",
+        )
     )
 
 }

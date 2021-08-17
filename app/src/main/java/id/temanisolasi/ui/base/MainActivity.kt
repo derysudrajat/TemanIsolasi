@@ -14,6 +14,7 @@ import id.temanisolasi.R
 import id.temanisolasi.data.model.InputData
 import id.temanisolasi.data.model.Isolation
 import id.temanisolasi.databinding.ActivityMainBinding
+import id.temanisolasi.ui.base.guide.GuideFragment
 import id.temanisolasi.ui.base.home.HomeFragment
 import id.temanisolasi.ui.base.home.HomeViewModel
 import id.temanisolasi.ui.base.home.intro.IntroFragment
@@ -55,7 +56,7 @@ class MainActivity : AppCompatActivity(), InputDataListener {
                             if (user?.inIsolation == true)
                                 HomeFragment.newInstance()
                             else IntroFragment.newInstance(),
-                            Fragment(),
+                            GuideFragment.newInstance(),
                             Fragment(),
                             ProfileFragment.newInstance(),
                         )
