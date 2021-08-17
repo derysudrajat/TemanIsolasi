@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/contentQuestion"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -41,13 +42,25 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="    Mulailah isolasi mandiri saat pertama kali merasakan gejala Covid-19 atau saat dinyatakan positif oleh petugas medis."
+            android:text="Mulailah isolasi mandiri saat pertama kali merasakan gejala Covid-19 atau saat dinyatakan positif oleh petugas medis."
+            android:visibility="gone"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="@color/primary"
-            android:visibility="gone"
             app:layout_constraintEnd_toStartOf="@+id/ivDropDown"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvQuestion" />
+
+        <ImageView
+            android:id="@+id/ivAnswer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            android:adjustViewBounds="true"
+            app:layout_constraintEnd_toStartOf="@+id/ivDropDown"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvAnswer"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

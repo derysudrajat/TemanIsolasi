@@ -4,6 +4,7 @@ import android.app.*
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.icu.text.MessageFormat
 import android.media.RingtoneManager
 import android.os.Build
 import android.util.Log
@@ -17,6 +18,7 @@ import com.google.firebase.ktx.Firebase
 import id.temanisolasi.R
 import id.temanisolasi.data.model.Isolation
 import id.temanisolasi.data.model.Report
+import id.temanisolasi.data.model.User
 import id.temanisolasi.ui.base.MainActivity
 import id.temanisolasi.ui.finishisolation.FinishIsolationActivity
 import id.temanisolasi.utils.COLLECTION
@@ -69,7 +71,7 @@ class AlarmReceiver : BroadcastReceiver() {
 
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_logo_notification)
-            .setContentTitle(getNotificationTitle(isIsolationFinish))
+            .setContentTitle(getNotificationTitle(notificationId, isIsolationFinish))
             .setAutoCancel(true)
             .setColor(
                 ContextCompat.getColor(
@@ -176,9 +178,28 @@ class AlarmReceiver : BroadcastReceiver() {
         ) != null
     }
 
-    private fun getNotificationTitle(isIsolationFinish: Boolean): String =
-        if (isIsolationFinish) "Isolasi Selesai"
-        else "Penginat Isolasi"
+    private fun getCurrentUser(onResult: (User) -> Unit) {
+        val id = Firebase.auth.currentUser?.uid ?: ""
+        Firebase.firestore.collection(COLLECTION.USER).document(id).get()
+            .addOnSuccessListener {
+                it.toObject(User::class.java)?.let { user -> onResult(user) }
+            }
+    }
+
+    private fun getNotificationTitle(notificationId: Int, isIsolationFinish: Boolean): String =
+        if (isIsolationFinish) "Cie yang udah selesai isolasi"
+        else {
+            val message = DataHelpers.notificationTitle[notificationId - 101]
+            val title = buildString {
+                getCurrentUser {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) append(
+                        MessageFormat(message).format({ it.name })
+                    )
+                    else message.replace("{0}", it.name ?: "")
+                }
+            }
+            title
+        }
 
     companion object {
         const val NOTIFICATION_REQUEST_CODE = 102

@@ -11,12 +11,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.Timestamp
 import id.temanisolasi.data.model.Isolation
+import id.temanisolasi.data.model.getEmptyReport
 import id.temanisolasi.databinding.FragmentIsolationDataBinding
 import id.temanisolasi.ui.startisolation.StartIsolationViewModel
 import id.temanisolasi.utils.DateFormat
 import id.temanisolasi.utils.Helpers
 import id.temanisolasi.utils.Helpers.afterTextChanged
+import id.temanisolasi.utils.Helpers.dayFrom
 import id.temanisolasi.utils.Helpers.getPlainText
 import id.temanisolasi.utils.Helpers.showDatePicker
 import id.temanisolasi.utils.Helpers.showError
@@ -72,7 +75,7 @@ class IsolationDataFragment : Fragment() {
             }
 
             lifecycleScope
-                .launch { edtDate.afterTextChanged { validateNotEmpty(it, 0, tilDate) } }
+                .launch { edtDate.afterTextChanged { validateDate(it) } }
             lifecycleScope
                 .launch { edtBloodType.afterTextChanged { validateNotEmpty(it, 1, tilBloodType) } }
             lifecycleScope
@@ -88,16 +91,33 @@ class IsolationDataFragment : Fragment() {
             val isComplete = progress.count { it } == progress.size
             model.setComplete(1, isComplete)
             if (isComplete) with(binding) {
+                val start = edtDate.getPlainText().toTimeStamp(DateFormat.SIMPLE)
+                val diff = start.dayFrom(Timestamp.now()).toInt()
                 model.setDataFromIsolation(
                     Isolation(
-                        startIsolation = edtDate.getPlainText().toTimeStamp(DateFormat.SIMPLE),
+                        startIsolation = start,
+                        passedDay = diff,
                         bloodType = edtBloodType.getPlainText(),
                         weight = edtWeight.getPlainText().toInt(),
                         vaccinated = if (edtVaccinated.getPlainText() == "Sudah") 1 else 0,
-                        symptom = if (edtSymptom.getPlainText() == "Tidak Bergejala") 0 else 1
+                        symptom = if (edtSymptom.getPlainText() == "Tidak Bergejala") 0 else 1,
+                        listReport = getEmptyReport(diff)
                     )
                 )
             }
+        }
+    }
+
+    private fun validateDate(it: String) = with(binding) {
+        if (it.isNotEmpty()) {
+            val diff = it.toTimeStamp(DateFormat.SIMPLE).dayFrom(Timestamp.now())
+            val valid = diff <= 14
+            model.setProgressIsolation(0, valid)
+            if (valid) Helpers.validateError(tilDate)
+            else tilDate.showError("Tidak boleh lebih dari 14 hari")
+        } else {
+            tilDate.showError()
+            model.setProgressIsolation(0, false)
         }
     }
 

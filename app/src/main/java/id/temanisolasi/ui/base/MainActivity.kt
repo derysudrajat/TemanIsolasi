@@ -3,6 +3,7 @@ package id.temanisolasi.ui.base
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -80,6 +81,7 @@ class MainActivity : AppCompatActivity(), InputDataListener {
             }
         }
         baseModel.activeIsolation.observe(this) {
+            Log.d("TAG", "activeIsolation: $it")
             sharedModel.setDataActiveIsolation(it)
             currentIsolation = it
 
@@ -87,7 +89,7 @@ class MainActivity : AppCompatActivity(), InputDataListener {
                 binding.rvInputData.apply {
                     itemAnimator = DefaultItemAnimator()
                     adapter = InputDataAdapter(
-                        this@MainActivity, DataHelpers.itemInputData, report, it.symptom ?: 0
+                        this@MainActivity, DataHelpers.itemInputData, report, it.symptom ?: -1
                     )
                 }
             }

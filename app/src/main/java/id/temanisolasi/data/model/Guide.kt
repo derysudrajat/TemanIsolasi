@@ -6,7 +6,8 @@ data class Guide(
 )
 
 data class Question(
-    val question: String,
-    val answer: String,
+    val question: String? = null,
+    val answer: String? = null,
+    val type: Int? = null,
     var isExpanded: Boolean? = false
 )

@@ -69,8 +69,8 @@ object DataHelpers {
     )
 
     val notificationTitle = listOf(
-        "Selamat Pagi",
-        "Tau ga? Tertawa itu bisa jadi obat terbaik.",
+        "Selamat Pagi, {0}",
+        "{0}, Kamu tau ga? Tertawa itu bisa jadi obat terbaik.",
         "Hallo {0}, udah malem jangan scroll medsos terus"
     )
 
@@ -98,11 +98,28 @@ object DataHelpers {
     val listOfQuestion = listOf(
         Question(
             "Apa yang dilakukan jika sudah 10 hari isolasi mandiri pada pasien OTG  dan pasien ringan?",
-            "OTG tidak harus PCR jika RINGAN harus melakukan PCR jika negative tunggu bebas gejala 10 hari dihitung dari bebas gejala"
+            "OTG tidak harus PCR jika RINGAN harus melakukan PCR jika negative tunggu bebas gejala 10 hari dihitung dari bebas gejala",
+            0
         ),
         Question(
             "Jika isoman suplemen apa yang harus dimakan dan makanan apa yang  harus  dihindari?",
             "Makanan yang harus dihindari adalah makanan berminyak yang mengandung lemak berlebihan dan kolesterol, konsumsi gula dibatasi terutama pada penderita diabetes , sediakan oksigen jika bergejala sedang. Kemudian makana makanan yang mengandung antioksidan seperti brokoli, kembang kol, tomat, wortel Malam bawang merah, bawang putih, jahe merah, air yang cukup. ",
+            0
+        ),
+        Question(
+            "Miniman paling enak apa?",
+            """
+                <ul>
+                  <li>Coffee</li>
+                  <li>Tea</li>
+                  <li>Milk</li>
+                </ul>  
+            """.trimIndent(), 0
+        ),
+        Question(
+            "Gambar apa hayooo...",
+            "https://user-images.githubusercontent.com/87884013/129652107-2342be62-4d10-4f23-a458-dd14b24f51c3.jpg",
+            type = 1
         )
     )
 

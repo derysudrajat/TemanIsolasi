@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.SimpleItemAnimator
 import id.temanisolasi.databinding.FragmentGuideBinding
@@ -13,6 +14,7 @@ import id.temanisolasi.utils.DataHelpers
 class GuideFragment : Fragment() {
 
     private var _binding: FragmentGuideBinding? = null
+    private val model: GuideViewModel by viewModels()
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -26,6 +28,7 @@ class GuideFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        model.getAllQuestion()
 
         with(binding) {
 
@@ -34,11 +37,12 @@ class GuideFragment : Fragment() {
                 adapter = GuideAdapter(requireContext(), DataHelpers.listOfGuide)
             }
 
-
-            rvQuestion.apply {
-                itemAnimator = DefaultItemAnimator()
-                (itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
-                adapter = QuestionAdapter(requireContext(), DataHelpers.listOfQuestion)
+            model.questions.observe(viewLifecycleOwner) {
+                rvQuestion.apply {
+                    itemAnimator = DefaultItemAnimator()
+                    (itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+                    adapter = QuestionAdapter(requireContext(), it)
+                }
             }
         }
     }

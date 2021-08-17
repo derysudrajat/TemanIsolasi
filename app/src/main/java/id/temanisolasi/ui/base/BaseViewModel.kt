@@ -20,7 +20,7 @@ class BaseViewModel(
     val activeIsolation: LiveData<Isolation> get() = _activeIsolation
 
     fun getActiveIsolationData() = viewModelScope.launch {
-        val id = Firebase.auth.uid ?: ""
+        val id = Firebase.auth.currentUser?.uid ?: ""
         isolationRepository.getActiveIsolation(id).collect {
             if (it is State.Success) it.data.let { data -> _activeIsolation.value = data }
         }
