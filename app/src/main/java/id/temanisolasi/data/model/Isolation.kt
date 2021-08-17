@@ -26,6 +26,12 @@ data class Isolation(
     val id: String? = null,
 ) : Parcelable
 
+fun getEmptyReport(day: Int): MutableList<Report> {
+    val listReport = mutableListOf<Report>()
+    repeat(day) { listReport.add(Report()) }
+    return listReport
+}
+
 fun Isolation.toList(): List<String> {
     return listOf(
         this.name ?: "-",

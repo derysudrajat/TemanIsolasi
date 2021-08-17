@@ -37,6 +37,14 @@ class InputDataAdapter(
                 ivIcon.setImageResource(data.img)
                 contentInput.setOnClickListener { listener.onClick(data) }
 
+                if (symptom == -1) contentInput.apply {
+                    isClickable = false
+                    isFocusable = false
+                    setCardBackgroundColor(
+                        ContextCompat.getColor(context, R.color.primary_50_alt)
+                    )
+                }
+
                 if (position == 2) contentInput.apply {
                     val time = Helpers.getTimeStateNow()
                     val status = report.medicine?.get(
@@ -50,7 +58,9 @@ class InputDataAdapter(
                     if (status == 0 || symptom == 0) {
                         isClickable = false
                         isFocusable = false
-                        setCardBackgroundColor(ContextCompat.getColor(context, R.color.primary_50))
+                        setCardBackgroundColor(
+                            ContextCompat.getColor(context, R.color.primary_50_alt)
+                        )
                     }
                 }
             }

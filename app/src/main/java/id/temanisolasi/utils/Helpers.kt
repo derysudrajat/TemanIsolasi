@@ -5,7 +5,10 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.content.res.Configuration
 import android.net.Uri
+import android.os.Build
 import android.text.Editable
+import android.text.Html
+import android.text.Spanned
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -202,4 +205,10 @@ object Helpers {
     fun Activity.isDarkMode(): Boolean =
         this.resources?.configuration?.uiMode
             ?.and(Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+
+    fun String.formatHtml(): Spanned? =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) Html.fromHtml(
+            this, Html.FROM_HTML_MODE_COMPACT
+        ) else Html.fromHtml(this)
+
 }

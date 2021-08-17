@@ -2,6 +2,8 @@
 <resources>
     <color name="primary">#015391</color>
     <color name="primary_50">#80015391</color>
+    <color name="primary_50_alt">#80A9C8</color>
+    <color name="primary_10">#1A015391</color>
     <color name="secondary">#6ED1FE</color>
     <color name="black">#FF000000</color>
     <color name="error">#FFD9D9</color>

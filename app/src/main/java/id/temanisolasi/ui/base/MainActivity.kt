@@ -3,6 +3,7 @@ package id.temanisolasi.ui.base
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -14,6 +15,7 @@ import id.temanisolasi.R
 import id.temanisolasi.data.model.InputData
 import id.temanisolasi.data.model.Isolation
 import id.temanisolasi.databinding.ActivityMainBinding
+import id.temanisolasi.ui.base.guide.GuideFragment
 import id.temanisolasi.ui.base.home.HomeFragment
 import id.temanisolasi.ui.base.home.HomeViewModel
 import id.temanisolasi.ui.base.home.intro.IntroFragment
@@ -55,7 +57,7 @@ class MainActivity : AppCompatActivity(), InputDataListener {
                             if (user?.inIsolation == true)
                                 HomeFragment.newInstance()
                             else IntroFragment.newInstance(),
-                            Fragment(),
+                            GuideFragment.newInstance(),
                             Fragment(),
                             ProfileFragment.newInstance(),
                         )
@@ -79,6 +81,7 @@ class MainActivity : AppCompatActivity(), InputDataListener {
             }
         }
         baseModel.activeIsolation.observe(this) {
+            Log.d("TAG", "activeIsolation: $it")
             sharedModel.setDataActiveIsolation(it)
             currentIsolation = it
 
@@ -86,7 +89,7 @@ class MainActivity : AppCompatActivity(), InputDataListener {
                 binding.rvInputData.apply {
                     itemAnimator = DefaultItemAnimator()
                     adapter = InputDataAdapter(
-                        this@MainActivity, DataHelpers.itemInputData, report, it.symptom ?: 0
+                        this@MainActivity, DataHelpers.itemInputData, report, it.symptom ?: -1
                     )
                 }
             }

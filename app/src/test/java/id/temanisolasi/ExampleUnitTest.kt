@@ -23,6 +23,14 @@ class ExampleUnitTest {
     }
 
     @Test
+    fun testDay() {
+        repeat(14) {
+            print(it)
+            print(" ")
+        }
+    }
+
+    @Test
     fun testTime() {
         val cal = Calendar.getInstance().apply { time = Timestamp.now().toDate() }
         val hour = cal.get(Calendar.HOUR_OF_DAY)

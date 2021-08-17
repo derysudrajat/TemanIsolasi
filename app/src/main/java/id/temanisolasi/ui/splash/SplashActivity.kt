@@ -2,7 +2,6 @@ package id.temanisolasi.ui.splash
 
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -75,6 +74,16 @@ class SplashActivity : AppCompatActivity() {
             baseModel.activeIsolation.removeObservers(this)
             val dayDiff = it.startIsolation?.dayFrom(Timestamp.now())
             val isNewDay = dayDiff?.toInt() ?: 1 > it.passedDay ?: 1
+            if (it.active == true && it.symptom != null) {
+                val notificationId = AlarmReceiver.Companion.NOTIFICATION_ID
+                if (it.symptom == 0 && !morningAlarm) alarmManager.setAlarm(
+                    this, notificationId.MORNING
+                ) else if (it.symptom == 1 && !morningAlarm && !noonAlarm && !nightAlarm) alarmManager.apply {
+                    setAlarm(this@SplashActivity, notificationId.MORNING)
+                    setAlarm(this@SplashActivity, notificationId.NOON)
+                    setAlarm(this@SplashActivity, notificationId.NIGHT)
+                }
+            }
 
             val intent = if (isNewDay && it.passedDay == 14)
                 Intent(this, FinishIsolationActivity::class.java)
@@ -103,10 +112,8 @@ class SplashActivity : AppCompatActivity() {
         finish()
     }
 
-    fun changeColor(resourceColor: Int) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.statusBarColor = ContextCompat.getColor(applicationContext, resourceColor)
-        }
+    private fun changeColor(resourceColor: Int) {
+        window.statusBarColor = ContextCompat.getColor(applicationContext, resourceColor)
         val bar: ActionBar? = supportActionBar
         bar?.setBackgroundDrawable(
             ColorDrawable(ContextCompat.getColor(applicationContext, resourceColor))

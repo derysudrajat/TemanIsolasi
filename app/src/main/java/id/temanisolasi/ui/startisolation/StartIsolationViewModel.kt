@@ -59,6 +59,8 @@ class StartIsolationViewModel : ViewModel() {
             weight = isolation.weight
             vaccinated = isolation.vaccinated
             symptom = isolation.symptom
+            passedDay = isolation.passedDay
+            listReport = isolation.listReport
             userId = id
         }
     }

@@ -23,6 +23,7 @@
         <entry key="..\:/TemanIsolasi/app/src/main/res/drawable/sl_home.xml" value="0.22291666666666668" />
         <entry key="..\:/TemanIsolasi/app/src/main/res/drawable/sl_profile.xml" value="0.22291666666666668" />
         <entry key="..\:/TemanIsolasi/app/src/main/res/drawable/white_button_color.xml" value="0.22291666666666668" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/layout/activity_detail_guide.xml" value="0.18" />
         <entry key="..\:/TemanIsolasi/app/src/main/res/layout/activity_edit_profile.xml" value="0.22" />
         <entry key="..\:/TemanIsolasi/app/src/main/res/layout/activity_finish_isolation.xml" value="0.22" />
         <entry key="..\:/TemanIsolasi/app/src/main/res/layout/activity_input_data.xml" value="0.22" />
@@ -35,6 +36,7 @@
         <entry key="..\:/TemanIsolasi/app/src/main/res/layout/dialog_history.xml" value="0.20677083333333332" />
         <entry key="..\:/TemanIsolasi/app/src/main/res/layout/dialog_isolation.xml" value="0.22" />
         <entry key="..\:/TemanIsolasi/app/src/main/res/layout/fragment_begin_isolation.xml" value="0.33" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/layout/fragment_guide.xml" value="0.22" />
         <entry key="..\:/TemanIsolasi/app/src/main/res/layout/fragment_home.xml" value="0.20092592592592592" />
         <entry key="..\:/TemanIsolasi/app/src/main/res/layout/fragment_intro.xml" value="0.22" />
         <entry key="..\:/TemanIsolasi/app/src/main/res/layout/fragment_isolation_data.xml" value="0.20677083333333332" />
@@ -44,8 +46,11 @@
         <entry key="..\:/TemanIsolasi/app/src/main/res/layout/fragment_task.xml" value="0.5" />
         <entry key="..\:/TemanIsolasi/app/src/main/res/layout/fragment_temperature.xml" value="0.17407407407407408" />
         <entry key="..\:/TemanIsolasi/app/src/main/res/layout/item_data_isolation.xml" value="0.33" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/layout/item_detail_guide.xml" value="0.22" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/layout/item_guide.xml" value="0.22" />
         <entry key="..\:/TemanIsolasi/app/src/main/res/layout/item_input_data.xml" value="0.33" />
         <entry key="..\:/TemanIsolasi/app/src/main/res/layout/item_isolation_history.xml" value="0.25" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/layout/item_question.xml" value="0.33460803059273425" />
         <entry key="..\:/TemanIsolasi/app/src/main/res/menu/main_bottom_nav_menu.xml" value="0.20358974358974358" />
       </map>
     </option>
