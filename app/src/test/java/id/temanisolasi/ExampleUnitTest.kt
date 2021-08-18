@@ -31,6 +31,12 @@ class ExampleUnitTest {
     }
 
     @Test
+    fun testRandom() {
+        val list = (0..30)
+        println("Pick one : ${list.shuffled().take(1)[0]}")
+    }
+
+    @Test
     fun testTime() {
         val cal = Calendar.getInstance().apply { time = Timestamp.now().toDate() }
         val hour = cal.get(Calendar.HOUR_OF_DAY)

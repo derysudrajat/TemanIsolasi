@@ -4,6 +4,8 @@ object COLLECTION {
     const val GUIDE_START = "guide-start"
     const val GUIDE_ISOLATION = "guide-isolation"
     const val GUIDE_FINISH = "guide-finish"
+    const val GAME = "games"
+    const val FAV_GAME = "fav_games"
     const val USER = "user"
     const val ISOLATION = "isolation"
 }
