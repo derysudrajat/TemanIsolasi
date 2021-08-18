@@ -8,13 +8,13 @@ import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import id.temanisolasi.R
 import id.temanisolasi.data.model.InputData
 import id.temanisolasi.data.model.Isolation
 import id.temanisolasi.databinding.ActivityMainBinding
+import id.temanisolasi.ui.base.games.GamesFragment
 import id.temanisolasi.ui.base.guide.GuideFragment
 import id.temanisolasi.ui.base.home.HomeFragment
 import id.temanisolasi.ui.base.home.HomeViewModel
@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity(), InputDataListener {
                                 HomeFragment.newInstance()
                             else IntroFragment.newInstance(),
                             GuideFragment.newInstance(),
-                            Fragment(),
+                            GamesFragment.newInstance(),
                             ProfileFragment.newInstance(),
                         )
                     )

@@ -6,9 +6,9 @@ plugins {
 }
 
 ext.majorVersion = 0
-ext.minorVersion = 1
-ext.patchVersion = 9
-ext.preRelease = "dev"
+ext.minorVersion = 2
+ext.patchVersion = 0
+ext.preRelease = "rc"
 ext.minSdkVersion = 21
 
 android {
@@ -115,6 +115,9 @@ dependencies {
 
     // image picker
     implementation 'com.github.dhaval2404:imagepicker:2.0'
+
+    // shake
+    implementation 'com.squareup:seismic:1.0.2'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

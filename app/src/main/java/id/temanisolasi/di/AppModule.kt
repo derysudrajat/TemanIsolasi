@@ -1,11 +1,13 @@
 package id.temanisolasi.di
 
 import id.temanisolasi.data.repo.remote.firebase.auth.AuthRepository
+import id.temanisolasi.data.repo.remote.firebase.firestore.game.FirestoreGamesRepository
 import id.temanisolasi.data.repo.remote.firebase.firestore.guide.FirestoreGuideRepository
 import id.temanisolasi.data.repo.remote.firebase.firestore.isolation.FirestoreIsolationRepository
 import id.temanisolasi.data.repo.remote.firebase.firestore.user.FirestoreUserRepository
 import id.temanisolasi.data.repo.remote.firebase.storage.StorageUserRepository
 import id.temanisolasi.ui.base.BaseViewModel
+import id.temanisolasi.ui.base.games.GamesViewModel
 import id.temanisolasi.ui.base.guide.detail.DetailGuideActivityViewModel
 import id.temanisolasi.ui.base.home.HomeViewModel
 import id.temanisolasi.ui.base.inputdata.InputDataViewModel
@@ -23,6 +25,7 @@ val useCaseModule = module {
     single { FirestoreUserRepository() }
     single { FirestoreIsolationRepository() }
     single { FirestoreGuideRepository() }
+    single { FirestoreGamesRepository() }
 }
 
 val viewModelModule = module {
@@ -35,4 +38,5 @@ val viewModelModule = module {
     viewModel { InputDataViewModel(get()) }
     viewModel { FinishIsolationViewModel(get(), get()) }
     viewModel { DetailGuideActivityViewModel(get()) }
+    viewModel { GamesViewModel(get()) }
 }

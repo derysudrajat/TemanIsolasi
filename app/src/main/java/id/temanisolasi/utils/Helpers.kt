@@ -169,8 +169,8 @@ object Helpers {
         this.visibility = View.VISIBLE
     }
 
-    fun View.hideView() {
-        this.visibility = View.GONE
+    fun View.hideView(isInvisible: Boolean? = false) {
+        this.visibility = if (isInvisible == true) View.INVISIBLE else View.GONE
     }
 
     fun Timestamp.dayFrom(day: Timestamp): Long {

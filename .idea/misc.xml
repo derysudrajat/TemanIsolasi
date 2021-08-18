@@ -36,6 +36,7 @@
         <entry key="..\:/TemanIsolasi/app/src/main/res/layout/dialog_history.xml" value="0.20677083333333332" />
         <entry key="..\:/TemanIsolasi/app/src/main/res/layout/dialog_isolation.xml" value="0.22" />
         <entry key="..\:/TemanIsolasi/app/src/main/res/layout/fragment_begin_isolation.xml" value="0.33" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/layout/fragment_game.xml" value="0.33" />
         <entry key="..\:/TemanIsolasi/app/src/main/res/layout/fragment_guide.xml" value="0.22" />
         <entry key="..\:/TemanIsolasi/app/src/main/res/layout/fragment_home.xml" value="0.20092592592592592" />
         <entry key="..\:/TemanIsolasi/app/src/main/res/layout/fragment_intro.xml" value="0.22" />
@@ -47,6 +48,7 @@
         <entry key="..\:/TemanIsolasi/app/src/main/res/layout/fragment_temperature.xml" value="0.17407407407407408" />
         <entry key="..\:/TemanIsolasi/app/src/main/res/layout/item_data_isolation.xml" value="0.33" />
         <entry key="..\:/TemanIsolasi/app/src/main/res/layout/item_detail_guide.xml" value="0.22" />
+        <entry key="..\:/TemanIsolasi/app/src/main/res/layout/item_games.xml" value="0.5" />
         <entry key="..\:/TemanIsolasi/app/src/main/res/layout/item_guide.xml" value="0.22" />
         <entry key="..\:/TemanIsolasi/app/src/main/res/layout/item_input_data.xml" value="0.33" />
         <entry key="..\:/TemanIsolasi/app/src/main/res/layout/item_isolation_history.xml" value="0.25" />
