@@ -1,12 +1,10 @@
 package id.temanisolasi.ui.base.profile
 
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -19,7 +17,6 @@ import id.temanisolasi.data.repo.remote.firebase.storage.StorageUserHelpers
 import id.temanisolasi.databinding.DialogIsolationBinding
 import id.temanisolasi.databinding.FragmentProfileBinding
 import id.temanisolasi.ui.base.home.HomeViewModel
-import id.temanisolasi.ui.base.profile.editprofile.EditProfileActivity
 import id.temanisolasi.ui.startisolation.IsolationViewModel
 import id.temanisolasi.utils.Helpers
 import id.temanisolasi.utils.Helpers.encodeName
@@ -45,21 +42,20 @@ class ProfileFragment : Fragment(), ItemIsolationListener {
         super.onViewCreated(view, savedInstanceState)
         homeModel.getUser()
         isolationModel.getDataIsolation()
+        (requireActivity() as AppCompatActivity).apply {
+            setSupportActionBar(binding.toolbar)
+            supportActionBar?.setDisplayShowTitleEnabled(false)
+            binding.collapsingToolbar.title = ""
+        }
 
         homeModel.user.observe(viewLifecycleOwner) { user ->
-            with(binding) {
+            with(binding.layoutProfile) {
                 tvName.text = user.name
                 user.img.let { img ->
                     if (img != null) StorageUserHelpers.getImgUrl(
                         user.id?.getAvaLocation(img) ?: ""
                     ) { loadAva(it) }
                     else loadAva(Helpers.getPlaceHolder(user.name?.encodeName() ?: "").toUri())
-                }
-
-
-                btnEdit.setOnClickListener {
-                    startActivity(Intent(requireContext(), EditProfileActivity::class.java)
-                        .apply { putExtra(EditProfileActivity.EXTRA_USER, user) })
                 }
             }
         }
@@ -73,7 +69,7 @@ class ProfileFragment : Fragment(), ItemIsolationListener {
 
     }
 
-    private fun loadAva(it: Uri) = with(binding) {
+    private fun loadAva(it: Uri) = with(binding.layoutProfile) {
         ivAva.load(it) {
             crossfade(true)
             transformations(CircleCropTransformation())

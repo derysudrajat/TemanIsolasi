@@ -1,6 +1,8 @@
 package id.temanisolasi
 
+import android.icu.text.MessageFormat
 import com.google.firebase.Timestamp
+import id.temanisolasi.utils.DataHelpers
 import id.temanisolasi.utils.DateFormat
 import id.temanisolasi.utils.Helpers.toTimeStamp
 import org.junit.Test
@@ -41,5 +43,12 @@ class ExampleUnitTest {
         val cal = Calendar.getInstance().apply { time = Timestamp.now().toDate() }
         val hour = cal.get(Calendar.HOUR_OF_DAY)
         println("hour = $hour")
+    }
+
+    @Test
+    fun testNotification() {
+        val name = "Sayang"
+        val message = DataHelpers.notificationTitle[0]
+        println("Notification = ${MessageFormat(message).format({ name })}")
     }
 }

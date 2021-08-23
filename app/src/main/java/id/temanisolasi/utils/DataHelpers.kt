@@ -2,6 +2,7 @@ package id.temanisolasi.utils
 
 import id.temanisolasi.R
 import id.temanisolasi.data.model.*
+import id.temanisolasi.ui.base.profile.editprofile.EditProfileActivity
 
 object DataHelpers {
     val errorLoginMessage =
@@ -204,6 +205,14 @@ object DataHelpers {
             "https://user-images.githubusercontent.com/87884013/129652107-2342be62-4d10-4f23-a458-dd14b24f51c3.jpg",
             type = 1
         )
+    )
+
+    val itemSettings = listOf(
+        Settings("Edit Profil", EditProfileActivity::class.java),
+        Settings("Credits"),
+        Settings("Tetang Kami"),
+        Settings("Masukan"),
+        Settings("Keluar"),
     )
 
 }

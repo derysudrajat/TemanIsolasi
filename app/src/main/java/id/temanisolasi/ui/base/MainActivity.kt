@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -13,6 +15,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import id.temanisolasi.R
 import id.temanisolasi.data.model.InputData
 import id.temanisolasi.data.model.Isolation
+import id.temanisolasi.data.model.User
 import id.temanisolasi.databinding.ActivityMainBinding
 import id.temanisolasi.ui.base.games.GamesFragment
 import id.temanisolasi.ui.base.guide.GuideFragment
@@ -21,6 +24,7 @@ import id.temanisolasi.ui.base.home.HomeViewModel
 import id.temanisolasi.ui.base.home.intro.IntroFragment
 import id.temanisolasi.ui.base.inputdata.InputDataActivity
 import id.temanisolasi.ui.base.profile.ProfileFragment
+import id.temanisolasi.ui.settings.SettingsActivity
 import id.temanisolasi.utils.DataHelpers
 import id.temanisolasi.utils.Helpers.setRounded
 import id.temanisolasi.utils.SectionPagerAdapter
@@ -35,6 +39,7 @@ class MainActivity : AppCompatActivity(), InputDataListener {
     private val sharedModel: BaseSharedViewModel by viewModels()
     private var bottomSheetState = 0
     private var currentIsolation = Isolation()
+    private var currentUser = User()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +56,7 @@ class MainActivity : AppCompatActivity(), InputDataListener {
             }
             viewPager.apply {
                 model.user.observe(this@MainActivity) { user ->
+                    currentUser = user
                     adapter = SectionPagerAdapter(
                         this@MainActivity,
                         listOf(
@@ -123,6 +129,19 @@ class MainActivity : AppCompatActivity(), InputDataListener {
 
                 override fun onSlide(bottomSheet: View, slideOffset: Float) {}
             })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_profile, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.actionSettings) startActivity(
+            (Intent(this, SettingsActivity::class.java)
+                .apply { putExtra(SettingsActivity.EXTRA_SETTINGS, currentUser) })
+        )
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onBackPressed() {

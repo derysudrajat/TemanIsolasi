@@ -1,6 +1,9 @@
 package id.temanisolasi.provider
 
-import android.app.*
+import android.app.AlarmManager
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -24,23 +27,29 @@ import id.temanisolasi.ui.finishisolation.FinishIsolationActivity
 import id.temanisolasi.utils.COLLECTION
 import id.temanisolasi.utils.DataHelpers
 import id.temanisolasi.utils.Helpers.dayFrom
-import id.temanisolasi.utils.Helpers.isDarkMode
 import java.util.*
 
 class AlarmReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         intent.extras?.getInt(EXTRA_NOTIFICATION_ID)?.let { notificationId ->
+            Log.d("TAG", "onReceive: $notificationId")
             var isIsolationFinish: Boolean
             if (notificationId == NOTIFICATION_ID.MORNING) getActiveIsolation {
                 val dayDiff = it.startIsolation?.dayFrom(Timestamp.now())
                 val isNewDay = dayDiff?.toInt() ?: 1 > it.passedDay ?: 1
                 if (isNewDay) postNewReport(it.id, dayDiff)
                 isIsolationFinish = (isNewDay && it.passedDay == 14)
-                showAlarmNotification(context, notificationId, isIsolationFinish, it.id)
+                getNotificationTitle(notificationId, isIsolationFinish) { title ->
+                    Log.d("TAG", "onReceive-title: $title")
+                    showAlarmNotification(context, notificationId, isIsolationFinish, title, it.id)
+                }
             } else {
                 isIsolationFinish = false
-                showAlarmNotification(context, notificationId, isIsolationFinish)
+                getNotificationTitle(notificationId, isIsolationFinish) { title ->
+                    Log.d("TAG", "onReceive-title: $title")
+                    showAlarmNotification(context, notificationId, isIsolationFinish, title)
+                }
             }
         }
     }
@@ -49,6 +58,7 @@ class AlarmReceiver : BroadcastReceiver() {
         context: Context,
         notificationId: Int,
         isIsolationFinish: Boolean,
+        title: String,
         id: String? = null
     ) {
         val notificationManagerCompat =
@@ -69,16 +79,13 @@ class AlarmReceiver : BroadcastReceiver() {
         )
         val message = getMessage(notificationId, isIsolationFinish)
 
+        Log.d("TAG", "getNotificationTitle: $title")
+
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_logo_notification)
-            .setContentTitle(getNotificationTitle(notificationId, isIsolationFinish))
+            .setContentTitle(title)
             .setAutoCancel(true)
-            .setColor(
-                ContextCompat.getColor(
-                    context,
-                    if ((context as Activity).isDarkMode()) R.color.white else R.color.primary
-                )
-            )
+            .setColor(ContextCompat.getColor(context, R.color.primary))
             .setStyle(NotificationCompat.BigTextStyle().bigText(message))
             .setContentText(message)
             .setContentIntent(pendingIntent)
@@ -186,20 +193,20 @@ class AlarmReceiver : BroadcastReceiver() {
             }
     }
 
-    private fun getNotificationTitle(notificationId: Int, isIsolationFinish: Boolean): String =
-        if (isIsolationFinish) "Cie yang udah selesai isolasi"
+    private fun getNotificationTitle(
+        notificationId: Int, isIsolationFinish: Boolean, onResult: (String) -> Unit
+    ) {
+        if (isIsolationFinish) onResult("Cie yang udah selesai isolasi")
         else {
             val message = DataHelpers.notificationTitle[notificationId - 101]
-            val title = buildString {
-                getCurrentUser {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) append(
-                        MessageFormat(message).format({ it.name })
-                    )
-                    else message.replace("{0}", it.name ?: "")
-                }
+            getCurrentUser {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                    onResult(MessageFormat(message).format({ it.name }))
+                else onResult(message.replace("{0}", it.name ?: ""))
             }
-            title
         }
+    }
+
 
     companion object {
         const val NOTIFICATION_REQUEST_CODE = 102
