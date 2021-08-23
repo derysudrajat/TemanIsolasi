@@ -1,12 +1,14 @@
 package id.temanisolasi.ui.settings
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import id.temanisolasi.data.model.Settings
 import id.temanisolasi.databinding.ItemSettingsBinding
+import id.temanisolasi.ui.settings.detail.DetailSettingsActivity
 
 class SettingsAdapter(
     private val context: Context,
@@ -28,9 +30,18 @@ class SettingsAdapter(
         val setting = listSettings[position]
         with(binding) {
             tvItems.text = setting.name
-//            if (setting.target != null) context.apply {
-//                startActivity(Intent(this, setting.target))
-//            }
+            contentSettings.setOnClickListener {
+                if (setting.target != null) context.apply {
+                    startActivity(Intent(this, setting.target).apply {
+                        when (position) {
+                            1 -> putExtra(
+                                DetailSettingsActivity.EXTRA_SETTINGS,
+                                DetailSettingsActivity.FRAGMENT_CREDITS
+                            )
+                        }
+                    })
+                }
+            }
         }
     }
 
