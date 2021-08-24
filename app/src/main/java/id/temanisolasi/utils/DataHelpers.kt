@@ -211,7 +211,7 @@ object DataHelpers {
     val itemSettings = listOf(
         Settings("Edit Profil", EditProfileActivity::class.java),
         Settings("Credits", DetailSettingsActivity::class.java),
-        Settings("Tetang Kami", DetailSettingsActivity::class.java),
+        Settings("Tentang Kami", DetailSettingsActivity::class.java),
         Settings("Kebijakan Privasi", DetailSettingsActivity::class.java),
         Settings("Masukan"),
         Settings("Keluar"),

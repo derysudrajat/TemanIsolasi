@@ -99,7 +99,6 @@ class EditProfileActivity : AppCompatActivity() {
                     }
                 }
             }
-
     }
 
     private fun loadAva(it: Uri) = with(binding) {
@@ -152,7 +151,6 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val EXTRA_USER = "extra_user"
 
         private enum class UPDATE {
             PHOTO_NAME, PHOTO, NAME

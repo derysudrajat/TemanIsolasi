@@ -23,10 +23,10 @@ object AuthHelpers {
 
     fun signOut(activity: Activity) {
         Firebase.auth.signOut()
-        Firebase.auth.currentUser?.reload()
         if (activity.getLastGoogleSign() != null) {
             getGoogleClient(activity).signOut()
             getGoogleClient(activity).revokeAccess()
         }
+        Firebase.auth.currentUser?.reload()
     }
 }

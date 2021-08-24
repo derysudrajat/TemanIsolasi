@@ -26,6 +26,8 @@ class GamesFragment : Fragment(), ShakeDetector.Listener, GamesListener {
     private val model: GamesViewModel by viewModel()
     private var onAnimated = false
     private var isHaveRef = false
+    private var isMediaAvailable = false
+    private var currentCategory = -1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -64,7 +66,7 @@ class GamesFragment : Fragment(), ShakeDetector.Listener, GamesListener {
 
             btnTryAgain.setOnClickListener {
                 stopSound()
-                randomGames()
+                randomGames(currentCategory)
                 playAnimation()
             }
 
@@ -97,11 +99,14 @@ class GamesFragment : Fragment(), ShakeDetector.Listener, GamesListener {
     fun playSound() {
         mediaPlayer = MediaPlayer.create(requireContext(), R.raw.open_box)
         mediaPlayer.start()
+        isMediaAvailable = true
     }
 
     fun stopSound() {
-        mediaPlayer.stop()
-        mediaPlayer.release()
+        if (isMediaAvailable) {
+            mediaPlayer.stop()
+            mediaPlayer.release()
+        }
     }
 
     fun controlResult(isHide: Boolean, isInvisible: Boolean? = false) = with(binding) {
@@ -119,6 +124,7 @@ class GamesFragment : Fragment(), ShakeDetector.Listener, GamesListener {
     }
 
     fun randomGames(fav: Int? = -1) = model.getRandomGames(fav) { games ->
+        if (fav != -1) currentCategory = fav ?: -1
         with(binding) {
             tvQuiz.text = games.games
             isHaveRef = games.type == 1
