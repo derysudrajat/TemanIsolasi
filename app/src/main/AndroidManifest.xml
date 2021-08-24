@@ -15,6 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TemanIsolasi">
         <activity
+            android:name=".ui.settings.detail.DetailSettingsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.settings.SettingsActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.base.guide.detail.DetailGuideActivity"
             android:exported="true" />
         <activity

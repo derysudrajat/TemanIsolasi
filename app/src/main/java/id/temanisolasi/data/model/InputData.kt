@@ -9,3 +9,8 @@ data class InputData(
     val text: String,
     val target: Int,
 ) : Parcelable
+
+data class Settings(
+    val name: String,
+    val target: Class<*>? = null,
+)

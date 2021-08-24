@@ -8,6 +8,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Project/TemanIsolasi/app/src/main/res/layout/activity_detail_guide.xml" value="0.3541666666666667" />
+        <entry key="..\:/Project/TemanIsolasi/app/src/main/res/layout/activity_detail_settings.xml" value="0.3541666666666667" />
+        <entry key="..\:/Project/TemanIsolasi/app/src/main/res/layout/fragment_about_us.xml" value="0.33" />
+        <entry key="..\:/Project/TemanIsolasi/app/src/main/res/layout/fragment_credits.xml" value="0.3541666666666667" />
+        <entry key="..\:/Project/TemanIsolasi/app/src/main/res/layout/fragment_game.xml" value="0.25" />
+        <entry key="..\:/Project/TemanIsolasi/app/src/main/res/layout/fragment_privacy_policy.xml" value="0.3541666666666667" />
+        <entry key="..\:/Project/TemanIsolasi/app/src/main/res/layout/fragment_profile.xml" value="0.3541666666666667" />
+        <entry key="..\:/Project/TemanIsolasi/app/src/main/res/layout/item_about_us.xml" value="0.3541666666666667" />
+        <entry key="..\:/Project/TemanIsolasi/app/src/main/res/layout/item_credits.xml" value="0.67" />
+        <entry key="..\:/Project/TemanIsolasi/app/src/main/res/layout/item_settings.xml" value="0.3541666666666667" />
+        <entry key="..\:/Project/TemanIsolasi/app/src/main/res/layout/layout_profile.xml" value="0.3333333333333333" />
         <entry key="..\:/TemanIsolasi/app/src/main/res/drawable/ic_back.xml" value="0.20092592592592592" />
         <entry key="..\:/TemanIsolasi/app/src/main/res/drawable/ic_games_fill.xml" value="0.22291666666666668" />
         <entry key="..\:/TemanIsolasi/app/src/main/res/drawable/ic_games_outline.xml" value="0.22291666666666668" />
@@ -57,7 +68,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

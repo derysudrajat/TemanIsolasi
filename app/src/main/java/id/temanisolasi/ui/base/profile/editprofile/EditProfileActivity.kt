@@ -11,9 +11,13 @@ import androidx.lifecycle.lifecycleScope
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import id.temanisolasi.R
 import id.temanisolasi.data.model.User
 import id.temanisolasi.databinding.ActivityEditProfileBinding
+import id.temanisolasi.utils.COLLECTION
 import id.temanisolasi.utils.Helpers
 import id.temanisolasi.utils.Helpers.afterTextChanged
 import id.temanisolasi.utils.Helpers.encodeName
@@ -43,51 +47,58 @@ class EditProfileActivity : AppCompatActivity() {
             setHomeAsUpIndicator(R.drawable.ic_back)
         }
 
-        intent.extras?.getParcelable<User>(EXTRA_USER)?.let { user ->
-            previousName = user.name ?: ""
+        val uid = Firebase.auth.currentUser?.uid ?: ""
+        Firebase.firestore.collection(COLLECTION.USER)
+            .document(uid)
+            .get()
+            .addOnSuccessListener { doc ->
+                doc.toObject(User::class.java)?.let { user ->
+                    previousName = user.name ?: ""
 
-            with(binding) {
+                    with(binding) {
 
-                lifecycleScope.launch { edtName.afterTextChanged { validateName(it) } }
+                        lifecycleScope.launch { edtName.afterTextChanged { validateName(it) } }
 
-                user.img.let { img ->
-                    if (img != null) model.getImgUrl(user.id ?: "", img) {
-                        loadAva(it)
-                    } else loadAva(Helpers.getPlaceHolder(user.name?.encodeName() ?: "").toUri())
-                }
-
-                edtName.setText(user.name)
-                btnChangePhoto.setOnClickListener {
-                    ImagePicker.with(this@EditProfileActivity)
-                        .cropSquare()
-                        .createIntent {
-                            activityForResult.launch(it)
+                        user.img.let { img ->
+                            if (img != null) model.getImgUrl(user.id ?: "", img) {
+                                loadAva(it)
+                            } else loadAva(
+                                Helpers.getPlaceHolder(user.name?.encodeName() ?: "").toUri()
+                            )
                         }
-                }
 
-                btnSave.setOnClickListener {
-                    when (updateState) {
-                        UPDATE.PHOTO_NAME -> model.updateData(
-                            this@EditProfileActivity, user.apply {
-                                name = edtName.getPlainText()
-                                img = avaUrl
-                            }, true
-                        )
-                        UPDATE.NAME -> model.updateData(
-                            this@EditProfileActivity, user.apply {
-                                name = edtName.getPlainText()
-                            }, false
-                        )
-                        UPDATE.PHOTO -> model.updateData(
-                            this@EditProfileActivity, user.apply {
-                                img = avaUrl
-                            }, true
-                        )
+                        edtName.setText(user.name)
+                        btnChangePhoto.setOnClickListener {
+                            ImagePicker.with(this@EditProfileActivity)
+                                .cropSquare()
+                                .createIntent {
+                                    activityForResult.launch(it)
+                                }
+                        }
+
+                        btnSave.setOnClickListener {
+                            when (updateState) {
+                                UPDATE.PHOTO_NAME -> model.updateData(
+                                    this@EditProfileActivity, user.apply {
+                                        name = edtName.getPlainText()
+                                        img = avaUrl
+                                    }, true
+                                )
+                                UPDATE.NAME -> model.updateData(
+                                    this@EditProfileActivity, user.apply {
+                                        name = edtName.getPlainText()
+                                    }, false
+                                )
+                                UPDATE.PHOTO -> model.updateData(
+                                    this@EditProfileActivity, user.apply {
+                                        img = avaUrl
+                                    }, true
+                                )
+                            }
+                        }
                     }
                 }
             }
-
-        }
 
     }
 
