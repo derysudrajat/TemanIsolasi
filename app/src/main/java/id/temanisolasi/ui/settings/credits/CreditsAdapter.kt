@@ -1,5 +1,6 @@
 package id.temanisolasi.ui.settings.credits
 
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +30,7 @@ class CreditsAdapter(
             "${(position + 1)}.".also { tvNo.text = it }
             tvTitle.text = credits.name
             tvContent.text = credits.source?.formatHtml()
+            tvContent.movementMethod = LinkMovementMethod.getInstance()
         }
     }
 

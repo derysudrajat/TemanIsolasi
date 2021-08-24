@@ -201,7 +201,7 @@ class AlarmReceiver : BroadcastReceiver() {
             val message = DataHelpers.notificationTitle[notificationId - 101]
             getCurrentUser {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                    onResult(MessageFormat(message).format({ it.name }))
+                    onResult(MessageFormat(message).format(arrayOf(it.name)))
                 else onResult(message.replace("{0}", it.name ?: ""))
             }
         }

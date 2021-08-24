@@ -109,7 +109,7 @@ class GamesFragment : Fragment(), ShakeDetector.Listener, GamesListener {
             if (isHaveRef) btnAction.showView() else btnAction.hideView()
         } else btnAction.hideView(isHaveRef)
 
-        listOf(ivQuiz, btnBack, btnTryAgain)
+        listOf(ivQuiz, tvQuiz, btnBack, btnTryAgain)
             .forEach { if (isHide) it.hideView(isInvisible) else it.showView() }
     }
 

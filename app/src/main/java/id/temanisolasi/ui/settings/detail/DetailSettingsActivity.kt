@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import id.temanisolasi.R
 import id.temanisolasi.databinding.ActivityDetailSettingsBinding
+import id.temanisolasi.ui.settings.about.AboutUsFragment
 import id.temanisolasi.ui.settings.credits.CreditsFragment
+import id.temanisolasi.ui.settings.privacy.PrivacyPolicyFragment
 
 class DetailSettingsActivity : AppCompatActivity() {
 
@@ -23,13 +25,15 @@ class DetailSettingsActivity : AppCompatActivity() {
 
                 val fragment = when (it) {
                     FRAGMENT_CREDITS -> CreditsFragment.newInstance()
+                    FRAGMENT_ABOUT -> AboutUsFragment.newInstance()
+                    FRAGMENT_POLICY_PRIVACY -> PrivacyPolicyFragment.newInstance()
                     else -> Fragment()
                 }
 
                 val pageTitle = when (it) {
                     FRAGMENT_CREDITS -> "Credits"
                     FRAGMENT_ABOUT -> "Tentang Kami"
-                    FRAGMENT_POLICY_PRIVACY -> "Privacy Policy"
+                    FRAGMENT_POLICY_PRIVACY -> "Kebijakan Privasi"
                     else -> ""
                 }
 
