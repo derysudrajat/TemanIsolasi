@@ -46,6 +46,17 @@ class FirestoreUserRepository : FirestoreUserDataSource {
         emit(State.failed(it.message ?: ""))
     }.flowOn(Dispatchers.IO)
 
+    override fun getUserByEmail(email: String) = flow {
+        emit(State.loading())
+        val snapshot = instance.whereEqualTo("email", email).get()
+        snapshot.await()
+        if (snapshot.isSuccessful) snapshot.result.toObjects(User::class.java).first()?.let {
+            emit(State.success(it))
+        }
+    }.catch {
+        emit(State.failed(it.message ?: ""))
+    }.flowOn(Dispatchers.IO)
+
     override fun updateUserIsInIsolation(uid: String, inIsolation: Boolean) = flow {
         emit(State.loading())
         val snapshot = instance.document(uid).update("inIsolation", inIsolation)

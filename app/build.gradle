@@ -7,7 +7,7 @@ plugins {
 
 ext.majorVersion = 0
 ext.minorVersion = 2
-ext.patchVersion = 2
+ext.patchVersion = 3
 ext.preRelease = "rc"
 ext.minSdkVersion = 21
 

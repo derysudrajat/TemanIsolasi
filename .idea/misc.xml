@@ -10,9 +10,14 @@
       <map>
         <entry key="..\:/Project/TemanIsolasi/app/src/main/res/layout/activity_detail_guide.xml" value="0.3541666666666667" />
         <entry key="..\:/Project/TemanIsolasi/app/src/main/res/layout/activity_detail_settings.xml" value="0.3541666666666667" />
+        <entry key="..\:/Project/TemanIsolasi/app/src/main/res/layout/activity_forget_password.xml" value="0.42250530785562634" />
+        <entry key="..\:/Project/TemanIsolasi/app/src/main/res/layout/activity_login.xml" value="0.22" />
+        <entry key="..\:/Project/TemanIsolasi/app/src/main/res/layout/activity_main.xml" value="0.3692708333333333" />
         <entry key="..\:/Project/TemanIsolasi/app/src/main/res/layout/fragment_about_us.xml" value="0.33" />
         <entry key="..\:/Project/TemanIsolasi/app/src/main/res/layout/fragment_credits.xml" value="0.3541666666666667" />
         <entry key="..\:/Project/TemanIsolasi/app/src/main/res/layout/fragment_game.xml" value="0.25" />
+        <entry key="..\:/Project/TemanIsolasi/app/src/main/res/layout/fragment_home.xml" value="0.3692708333333333" />
+        <entry key="..\:/Project/TemanIsolasi/app/src/main/res/layout/fragment_intro.xml" value="0.3692708333333333" />
         <entry key="..\:/Project/TemanIsolasi/app/src/main/res/layout/fragment_privacy_policy.xml" value="0.3541666666666667" />
         <entry key="..\:/Project/TemanIsolasi/app/src/main/res/layout/fragment_profile.xml" value="0.3541666666666667" />
         <entry key="..\:/Project/TemanIsolasi/app/src/main/res/layout/item_about_us.xml" value="0.3541666666666667" />

@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.Flow
 interface FirestoreUserDataSource {
     fun createNewUser(user: User): Flow<State<Boolean>>
     fun getUserById(userId: String): Flow<State<User>>
+    fun getUserByEmail(email: String): Flow<State<User>>
     fun updateUserIsInIsolation(uid: String, inIsolation: Boolean): Flow<State<Boolean>>
     fun updateUser(user: User): Flow<State<Boolean>>
 }
