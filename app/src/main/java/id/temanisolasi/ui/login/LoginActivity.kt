@@ -13,6 +13,7 @@ import com.google.android.gms.tasks.Task
 import id.temanisolasi.data.repo.remote.firebase.auth.AuthHelpers
 import id.temanisolasi.databinding.ActivityLoginBinding
 import id.temanisolasi.ui.base.MainActivity
+import id.temanisolasi.ui.forgetpassword.ForgetPasswordActivity
 import id.temanisolasi.ui.register.RegisterActivity
 import id.temanisolasi.utils.Helpers
 import id.temanisolasi.utils.Helpers.afterTextChanged
@@ -61,6 +62,10 @@ class LoginActivity : AppCompatActivity() {
             btnRegister.setOnClickListener {
                 startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
                 finish()
+            }
+
+            tvForgePassword.setOnClickListener {
+                startActivity(Intent(this@LoginActivity, ForgetPasswordActivity::class.java))
             }
         }
 

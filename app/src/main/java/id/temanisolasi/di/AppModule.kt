@@ -13,6 +13,7 @@ import id.temanisolasi.ui.base.home.HomeViewModel
 import id.temanisolasi.ui.base.inputdata.InputDataViewModel
 import id.temanisolasi.ui.base.profile.editprofile.EditProfileViewModel
 import id.temanisolasi.ui.finishisolation.FinishIsolationViewModel
+import id.temanisolasi.ui.forgetpassword.ForgetPasswordViewModel
 import id.temanisolasi.ui.login.LoginViewModel
 import id.temanisolasi.ui.register.RegisterViewModel
 import id.temanisolasi.ui.startisolation.IsolationViewModel
@@ -39,4 +40,5 @@ val viewModelModule = module {
     viewModel { FinishIsolationViewModel(get(), get()) }
     viewModel { DetailGuideActivityViewModel(get()) }
     viewModel { GamesViewModel(get()) }
+    viewModel { ForgetPasswordViewModel(get(), get()) }
 }

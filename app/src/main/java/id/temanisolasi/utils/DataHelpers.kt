@@ -70,14 +70,14 @@ object DataHelpers {
 
     val notificationTitle = listOf(
         "Selamat Pagi, {0}",
-        "{0}, Kamu tau ga? Tertawa itu bisa jadi obat terbaik.",
-        "Hallo {0}, udah malem jangan scroll medsos terus"
+        "{0}, Kamu tau ga?",
+        "Hallo {0}, udah malem nih"
     )
 
     val notificationMessage = listOf(
         "Yuk, jangan lupa isi data kesehatanmu hari ini!",
-        "Tapi kalau tertawa tanpa alasan yang jelas, mungkin kamu butuh obat, Yuk diminum obatnya.",
-        "Yuk, minum obat malamnya, daripada nanti udah ngantuk mending sekarang aja"
+        "Tertawa itu bisa jadi obat terbaik, tapi kalau tertawa tanpa alasan yang jelas, mungkin kamu butuh obat, Yuk diminum obatnya.",
+        "Jangan scroll medsos terus, yuk minum obat malamnya, daripada nanti udah ngantuk mending sekarang aja"
     )
 
     val listOfGuide = listOf(
