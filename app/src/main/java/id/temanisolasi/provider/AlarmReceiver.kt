@@ -7,6 +7,7 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.icu.text.MessageFormat
 import android.media.RingtoneManager
 import android.os.Build
@@ -28,6 +29,7 @@ import id.temanisolasi.utils.COLLECTION
 import id.temanisolasi.utils.DataHelpers
 import id.temanisolasi.utils.Helpers.dayFrom
 import java.util.*
+
 
 class AlarmReceiver : BroadcastReceiver() {
 
@@ -80,9 +82,12 @@ class AlarmReceiver : BroadcastReceiver() {
         val message = getMessage(notificationId, isIsolationFinish)
 
         Log.d("TAG", "getNotificationTitle: $title")
+        val largeIcon =
+            BitmapFactory.decodeResource(context.resources, R.drawable.ic_logo_notification)
 
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_logo_notification)
+            .setLargeIcon(largeIcon)
             .setContentTitle(title)
             .setAutoCancel(true)
             .setColor(ContextCompat.getColor(context, R.color.primary))
