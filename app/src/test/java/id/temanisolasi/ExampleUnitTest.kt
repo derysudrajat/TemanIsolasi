@@ -4,6 +4,7 @@ import android.icu.text.MessageFormat
 import com.google.firebase.Timestamp
 import id.temanisolasi.utils.DataHelpers
 import id.temanisolasi.utils.DateFormat
+import id.temanisolasi.utils.Helpers.formatDate
 import id.temanisolasi.utils.Helpers.toTimeStamp
 import org.junit.Test
 import java.util.*
@@ -17,10 +18,10 @@ import java.util.concurrent.TimeUnit
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
-        val today = "12/08/2021".toTimeStamp(DateFormat.SIMPLE)
-        val start = "11/08/2021".toTimeStamp(DateFormat.SIMPLE)
-        val diff = today.toDate().time - start.toDate().time
-        val day = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)
+        val today = Timestamp.now().formatDate(DateFormat.SIMPLE)?.toTimeStamp(DateFormat.SIMPLE)
+        val start = "31/08/2021".toTimeStamp(DateFormat.SIMPLE)
+        val diff = today?.toDate()?.time?.minus(start.toDate().time)
+        val day = diff?.let { TimeUnit.DAYS.convert(it, TimeUnit.MILLISECONDS) }?.plus(1)
         println(day)
     }
 
