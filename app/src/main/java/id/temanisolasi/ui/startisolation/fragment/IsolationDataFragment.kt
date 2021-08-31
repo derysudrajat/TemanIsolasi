@@ -20,6 +20,7 @@ import id.temanisolasi.utils.DateFormat
 import id.temanisolasi.utils.Helpers
 import id.temanisolasi.utils.Helpers.afterTextChanged
 import id.temanisolasi.utils.Helpers.dayFrom
+import id.temanisolasi.utils.Helpers.formatDate
 import id.temanisolasi.utils.Helpers.getPlainText
 import id.temanisolasi.utils.Helpers.showDatePicker
 import id.temanisolasi.utils.Helpers.showError
@@ -110,11 +111,15 @@ class IsolationDataFragment : Fragment() {
 
     private fun validateDate(it: String) = with(binding) {
         if (it.isNotEmpty()) {
-            val diff = it.toTimeStamp(DateFormat.SIMPLE).dayFrom(Timestamp.now())
-            val valid = diff <= 14
+            val diff = Timestamp.now().formatDate(DateFormat.SIMPLE)?.toTimeStamp(DateFormat.SIMPLE)
+                ?.let { today -> it.toTimeStamp(DateFormat.SIMPLE).dayFrom(today) } ?: 0
+            val valid = diff in 1..14
             model.setProgressIsolation(0, valid)
             if (valid) Helpers.validateError(tilDate)
-            else tilDate.showError("Tidak boleh lebih dari 14 hari")
+            else {
+                if (diff < 1) tilDate.showError("Tidak boleh lebih dari hari ini")
+                else tilDate.showError("Tidak boleh lebih dari 14 hari")
+            }
         } else {
             tilDate.showError()
             model.setProgressIsolation(0, false)
